@@ -47,6 +47,11 @@
                 .salary-breakdown .breakdown-item h6 span {
                     margin-left: 15px;
                 }
+
+            #savingsChart {
+                height: 100px;
+                width: 100px;
+            }
 </style>
 
 <script>
@@ -66,18 +71,18 @@
 <div class="container">
     <form method="post">
         <div class="form-group">
-            <label asp-for="starting_balance">Starting balance</label>
+            <label asp-for="starting_balance">Starting balance <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Initial deposit or existing amount in bank account."><img id="tooltip" src="Images/tooltip.png" /></a></label>
             <input asp-for="starting_balance" type="number" class="form-control" placeholder="Enter starting balance" />
             <span asp-validation-for="starting_balance" class="text-danger"></span>
         </div>
         <br />
         <div class="form-group">
-            <label asp-for="years">Years to grow</label>
+            <label asp-for="years">Years to grow <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Length of time for money to grow (in years)"><img id="tooltip" src="Images/tooltip.png" /></a></label>
             <input asp-for="years" type="number" class="form-control" placeholder="Years" />
         </div>
         <br />
         <div class="form-group">
-            <label asp-for="annual_interest">Annual interest rate (%)</label>
+            <label asp-for="annual_interest">Annual Percentage Yield (%) <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Percentage of interest earned on the account (APY)."><img id="tooltip" src="Images/tooltip.png" /></a></label>
             <input asp-for="annual_interest" type="number" class="form-control" placeholder="3" />
         </div>
         <br />
@@ -96,7 +101,7 @@
 <br />
 
 <div class="linechart">
-    <canvas id="savingsChart" width="150" height="150"></canvas>
+    <canvas id="savingsChart" width="50" height="150"></canvas>
 </div>
 
 <script>
@@ -129,7 +134,7 @@
                 x: {
                     title: {
                         display: true,
-                        text: 'Periods (Months or Years)',
+                        text: 'Periods',
                         color: 'black' 
                     },
                     ticks: {

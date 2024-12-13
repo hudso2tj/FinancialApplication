@@ -60,6 +60,7 @@
 
 <div class="text-center">
     <h1 class="display-4">Salary Calculator</h1>
+    <p>Welcome to the salary calculator! This calculator will be able to provide a rough estimate of the amount of cash </p>
 </div>
 
 <div class="container">
@@ -73,7 +74,7 @@
         <div class="form-group">
             <label asp-for="fed_tax">
                 Federal Withholding %
-                <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Tax to be withheld by the federal government"><img id="tooltip" src="Images/tooltip.png" /></a>
+                <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Tax to be withheld by the federal government."><img id="tooltip" src="Images/tooltip.png" /></a>
             </label>
             <input asp-for="fed_tax" type="number" class="form-control" placeholder="Enter federal income tax rate" />
             <span asp-validation-for="fed_tax" class="text-danger"></span>
@@ -81,7 +82,7 @@
         <br />
         <div class="form-group">
             <label asp-for="state_tax">State Withholding %</label>
-            <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Tax to be withheld by state government"><img id="tooltip" src="Images/tooltip.png" /></a>
+            <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Tax to be withheld by state government."><img id="tooltip" src="Images/tooltip.png" /></a>
             <input asp-for="state_tax" type="number" class="form-control" placeholder="Enter state income tax rate" />
             <span asp-validation-for="state_tax" class="text-danger"></span>
         </div>
@@ -90,15 +91,15 @@
             <label>Retirement Type</label><br />
             <input type="radio" asp-for="retirement_plan" value="1" id="Roth" />
             <label asp-for="retirement_plan">Roth</label>
-            <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Taxes are taken out of paychecks when receieved"><img id="tooltip" src="Images/tooltip.png" /></a>
+            <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Taxes are taken out of paychecks when receieved."><img id="tooltip" src="Images/tooltip.png" /></a>
             <input type="radio" asp-for="retirement_plan" value="2" id="Trad" />
             <label asp-for="retirement_plan">Traditional</label>
-            <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Taxes are taken out when taxes are filed each year"><img id="tooltip" src="Images/tooltip.png" /></a>
+            <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Taxes are taken out when taxes are filed each year."><img id="tooltip" src="Images/tooltip.png" /></a>
             <span asp-validation-for="retirement_plan" class="text-danger"></span>
         </div>
         <br />
         <div class="form-group">
-            <label asp-for="retirement_withholding">Retirement Withholding %</label>
+            <label asp-for="retirement_withholding">Retirement Withholding % <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Percentage of paycheck set aside for retirement fund."><img id="tooltip" src="Images/tooltip.png" /></a></label>
             <input asp-for="retirement_withholding" type="number" class="form-control" placeholder="Enter retirement withholding rate" />
             <span asp-validation-for="retirement_withholding" class="text-danger"></span>
         </div>
