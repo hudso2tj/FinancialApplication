@@ -1,0 +1,61 @@
+﻿@page
+@model FinancialApplication.Pages.TipCalculatorModel
+@{
+    ViewData["Title"] = "Tip Calculator";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Tip Calculator</h1>
+    <p>Use this tool to identify the amount of money required for a certain tip percentage.</p>
+</div>
+
+<div class="container">
+    <form method="post">
+        <div class="form-group">
+            <label asp-for="Total">Total:</label>
+            <input asp-for="Total" type="number" class="form-control" />
+            <span asp-validation-for="Total" class="text-danger"></span>
+        </div>
+        <br />
+        <div class="form-group">
+            <label>Tip Percentage:</label>
+            <input asp-for="TipPercentage" type="number" class="form-control" />
+            <span asp-validation-for="TipPercentage" class="text-danger"></span>
+            <span asp-validation-for="TipPercentage" class="text-danger"></span>
+        </div>
+        <br />
+        <div class="form-group">
+            <label asp-for="NumPeople">Split:</label>
+            <input asp-for="NumPeople" class="form-control" />
+            <span asp-validation-for="NumPeople" class="text-danger"></span>
+        </div>
+        <br />
+        <button type="submit" class="btn btn-primary">Calculate Tip</button>
+    </form>
+</div>
+<br />
+
+@if (Model.TotalAfterTip > 0)
+{
+    <div class="container salary-breakdown">
+        <div class="breakdown-item">
+            <h3>Bill Details</h3>
+            <br />
+            <p><strong>Subtotal:</strong> <span>@Model.Total?.ToString("C")</span></p>
+            <p><strong>Tip Percentage:</strong> <span>@Model.TipPercentage</span>%</p>
+            <p><strong>Tip Amount:</strong> <span>@Model.TipAmount.ToString("C")</span></p>
+            <p><strong>Total:</strong> <span>@Model.TotalAfterTip.ToString("C")</span></p>
+            <p><strong>Total Per Person:</strong> <span>@Model.TotalPerPerson.ToString("C")</span></p>
+        </div>
+    </div>
+}
+
+<div class="container">
+    <a href="/Index"><button class="btn btn-primary" id="back-button" type="button" asp-page="/Index">Back</button></a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

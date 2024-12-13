@@ -1,0 +1,13 @@
+﻿@page
+@model FinancialApplication.Pages.SettingsModel
+@{
+}
+
+<button onclick="darkMode()">Toggle dark mode</button>
+
+<script>
+    function darkMode() {
+        var element = document.html;
+        element.classList.toggle("dark-mode");
+    }
+</script>

@@ -1,0 +1,110 @@
+﻿@page
+@model FinancialApplication.Pages.SavingsCalculatorModel
+@{
+    ViewData["Title"] = "Savings Calculator";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+    .salary-breakdown {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px; /* Increased gap between columns */
+    }
+
+        .salary-breakdown .breakdown-item {
+            flex: 1;
+            margin-right: 10px;
+            padding: 15px; /* Added padding for better separation */
+            border: 1px solid #000; /* Optional: Adding border for visual separation */
+        }
+
+            .salary-breakdown .breakdown-item h3 {
+                text-align: center;
+            }
+
+            .salary-breakdown .breakdown-item p {
+                display: flex;
+                justify-content: space-between;
+                align-items: baseline; /* Align baseline for better vertical alignment */
+            }
+
+                .salary-breakdown .breakdown-item p span {
+                    margin-left: 15px;
+                }
+
+            .salary-breakdown .breakdown-item h6 {
+                margin-top: 10px;
+                margin-bottom: 5px;
+            }
+
+            /* Aligning Net Pay and Total Deductions to the right */
+            .salary-breakdown .breakdown-item h6 {
+                text-align: right;
+            }
+
+                .salary-breakdown .breakdown-item h6 span {
+                    margin-left: 15px; /* Adjust as needed for spacing */
+                }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    });
+</script>
+
+<div class="text-center">
+    <h1 class="display-4">Savings Calculator</h1>
+    <p>Use this tool to calculate a simple savings estimate.</p>
+</div>
+
+<div class="container">
+    <form method="post">
+        <div class="form-group">
+            <label asp-for="starting_balance">Starting balance</label>
+            <input asp-for="starting_balance" type="number" class="form-control" placeholder="Enter starting balance" />
+            <span asp-validation-for="starting_balance" class="text-danger"></span>
+        </div>
+        <br />
+        <div class="form-group">
+            <label asp-for="years">Years to grow</label>
+            <input asp-for="years" type="number" class="form-control" placeholder="Years" />
+        </div>
+        <br />
+        <div class="form-group">
+            <label asp-for="annual_interest">Annual interest rate (%)</label>
+            <input asp-for="annual_interest" type="number" class="form-control" placeholder="3" />
+        </div>
+        <br />
+        <div class="form-group">
+            <label asp-for="compound_frequency">Compound frequency</label>
+            <input type="radio" asp-for="compound_frequency" value="1" id="Monthly"/>
+            <label asp-for="compound_frequency">Monthly</label>
+            <input type="radio" asp-for="compound_frequency" value="2" id="Yearly" />
+            <label asp-for="compound_frequency">Yearly</label>
+            <span asp-validation-for="compound_frequency" class="text-danger"></span>
+        </div>
+        <br />
+        <button type="submit" class="btn btn-primary">Calculate</button>
+    </form>
+</div>
+<br />
+
+<div class="form-group">
+    <p>Ending balance: @Model.ending_balance.ToString("C")</p>
+</div>
+
+<div class="linechart">
+    <canvas id="savingsChart" width="400" height="400"></canvas>
+</div>
+
+<div class="container">
+    <a href="/Index"><button class="btn btn-primary" id="back-button" type="button" asp-page="/Index">Back</button></a>
+</div>
+

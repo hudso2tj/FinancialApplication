@@ -1,0 +1,56 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="DataClasses\**" />
+    <Compile Remove="DB\**" />
+    <Compile Remove="Pages\Data Classes\**" />
+    <Compile Remove="wwwroot\NewFolder1\**" />
+    <Content Remove="DataClasses\**" />
+    <Content Remove="DB\**" />
+    <Content Remove="Pages\Data Classes\**" />
+    <Content Remove="wwwroot\NewFolder1\**" />
+    <EmbeddedResource Remove="DataClasses\**" />
+    <EmbeddedResource Remove="DB\**" />
+    <EmbeddedResource Remove="Pages\Data Classes\**" />
+    <EmbeddedResource Remove="wwwroot\NewFolder1\**" />
+    <None Remove="DataClasses\**" />
+    <None Remove="DB\**" />
+    <None Remove="Pages\Data Classes\**" />
+    <None Remove="wwwroot\NewFolder1\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Pages\DBClass.cs" />
+    <Compile Remove="Pages\Privacy.cshtml.cs" />
+    <Compile Remove="Pages\Settings.cshtml.cs" />
+    <Compile Remove="Pages\Shared\SalaryCalculator.cshtml.cs" />
+    <Compile Remove="Pages\Suggestion.cshtml.cs" />
+    <Compile Remove="Pages\Suggestions.cshtml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Pages\Privacy.cshtml" />
+    <Content Remove="Pages\Settings.cshtml" />
+    <Content Remove="Pages\Shared\SalaryCalculator.cshtml" />
+    <Content Remove="Pages\Suggestion.cshtml" />
+    <Content Remove="Pages\Suggestions.cshtml" />
+    <Content Remove="wwwroot\Images\budget.png" />
+    <Content Remove="wwwroot\Images\retirement-calc.png" />
+    <Content Remove="wwwroot\Images\salary-calc.png" />
+    <Content Remove="wwwroot\Images\salary-calc.webp" />
+    <Content Remove="wwwroot\js\site.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.10" />
+  </ItemGroup>
+
+</Project>

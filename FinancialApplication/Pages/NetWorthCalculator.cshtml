@@ -1,0 +1,120 @@
+﻿@page
+@model FinancialApplication.Pages.NetWorthCalculatorModel
+@{
+    ViewData["Title"] = "Net Worth Calculator";
+}
+
+<head>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/site.css">
+    <link rel="stylesheet" href="~/FinancialApplication.styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    });
+</script>
+
+<div class="text-center">
+    <h1 class="display-4">Net Worth Calculator</h1>
+    <p>
+        Use this tool to calculate your net worth by entering your assets and liabilities.
+    </p>
+</div>
+
+@if (Model.NetWorth != double.MinValue)
+{
+    <span class="networth">
+        <h3>You Net Worth is:</h3>
+        @if (Model.NetWorth > 0)
+        {
+            <h3 class="text-success">@Model.NetWorth.ToString("C")</h3>
+        }
+        else
+        {
+            <h3 class="text-danger">@Model.NetWorth.ToString("C")</h3>
+        }
+    </span>
+}
+
+<div class="container">
+    <form method="post">
+        <div class="form-group">
+            <label><h3>Assets</h3></label>
+            <div class="assets">
+                <label>
+                    Cash or Cash Equivalents
+                    <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Cash on hand, Savings accounts, Checking accounts"><img id="tooltip" src="Images/tooltip.png" /></a>
+                </label>
+                <input asp-for="Cash" type="number" class="form-control" />
+
+                <label>
+                    Investments
+                    <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Stocks, Bonds, Mutual Funds, Retirement accounts, CDs"><img id="tooltip" src="Images/tooltip.png" /></a>
+                </label>
+                <input asp-for="Investments" type="number" class="form-control" />
+
+                <label>
+                    Real Estate
+                    <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Primary residence, Vacation homes, Rental properties, Land"><img id="tooltip" src="Images/tooltip.png" /></a>
+                </label>
+                <input asp-for="RealEstate" type="number" class="form-control" />
+
+                <label>
+                    Personal Property
+                    <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Cars, Boats, Recreational Vehicles, Jewelry, Collectibles"><img id="tooltip" src="Images/tooltip.png" /></a>
+                </label>
+                <input asp-for="PersonalProperty" type="number" class="form-control" />
+
+                <label>
+                    Business Ownership
+                    <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Equity in private businesses, Partnership interests"><img id="tooltip" src="Images/tooltip.png" /></a>
+                </label>
+                <input asp-for="BusinessOwnership" type="number" class="form-control" />
+
+                <label>
+                    Other Assets
+                    <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Cash value of life insurance policies, Money owed to you, Other valuable items"><img id="tooltip" src="Images/tooltip.png" /></a>
+                </label>
+                <input asp-for="OtherAssets" type="number" class="form-control" />
+            </div>
+
+            <br />
+            <label><h3>Liabilities</h3></label>
+            <div class="liabilities">
+                <label>
+                    Short-Term Liabilities
+                    <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Credit card debt, Medical bills, Personal loans, Taxes owed"><img id="tooltip" src="Images/tooltip.png" /></a>
+                </label>
+                <input asp-for="ShortTermLiability" type="number" class="form-control" />
+
+                <label>
+                    Long-Term Liabilities
+                    <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Mortgage on primary residence, Home equity loans, Auto loans, Student loans, Business loans"><img id="tooltip" src="Images/tooltip.png" /></a>
+                </label>
+                <input asp-for="LongTermLiability" type="number" class="form-control" />
+
+                <label>
+                    Other Liabilities
+                    <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Outstanding bills (utilities, rent, etc), Alimony or child support payments, Other long-term debts"><img id="tooltip" src="Images/tooltip.png" /></a>
+                </label>
+                <input asp-for="OtherLiability" type="number" class="form-control" />
+            </div>
+            <br />
+            <button type="submit" class="btn btn-primary">Calculate</button>
+        </div>
+    </form>
+</div>
+
+<br />
+
+
+<div class="container">
+    <a href="/Index"><button class="btn btn-primary" id="back-button" type="button" asp-page="/Index">Back</button></a>
+</div>

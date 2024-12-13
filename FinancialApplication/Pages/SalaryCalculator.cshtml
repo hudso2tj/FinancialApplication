@@ -1,0 +1,179 @@
+﻿@page
+@model FinancialApplication.Pages.SalaryCalculatorModel
+@{
+    ViewData["Title"] = "Salary Calculator";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
+
+<style>
+    .salary-breakdown {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px; /* Increased gap between columns */
+    }
+
+        .salary-breakdown .breakdown-item {
+            flex: 1;
+            margin-right: 10px;
+            padding: 15px; /* Added padding for better separation */
+            border: 1px solid #000; /* Optional: Adding border for visual separation */
+        }
+
+            .salary-breakdown .breakdown-item h3 {
+                text-align: center;
+            }
+
+            .salary-breakdown .breakdown-item p {
+                display: flex;
+                justify-content: space-between;
+                align-items: baseline; /* Align baseline for better vertical alignment */
+            }
+
+                .salary-breakdown .breakdown-item p span {
+                    margin-left: 15px;
+                }
+
+            .salary-breakdown .breakdown-item h6 {
+                margin-top: 10px;
+                margin-bottom: 5px;
+            }
+
+            /* Aligning Net Pay and Total Deductions to the right */
+            .salary-breakdown .breakdown-item h6 {
+                text-align: right;
+            }
+
+                .salary-breakdown .breakdown-item h6 span {
+                    margin-left: 15px; /* Adjust as needed for spacing */
+                }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    });
+</script>
+
+<div class="text-center">
+    <h1 class="display-4">Salary Calculator</h1>
+</div>
+
+<div class="container">
+    <form method="post">
+        <div class="form-group">
+            <label asp-for="hourly_pay">Hourly Pay</label>
+            <input asp-for="hourly_pay" type="number" class="form-control" placeholder="Enter hourly wage" />
+            <span asp-validation-for="hourly_pay" class="text-danger"></span>
+        </div>
+        <br />
+        <div class="form-group">
+            <label asp-for="fed_tax">
+                Federal Withholding %
+                <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Tax to be withheld by the federal government"><img id="tooltip" src="Images/tooltip.png" /></a>
+            </label>
+            <input asp-for="fed_tax" type="number" class="form-control" placeholder="Enter federal income tax rate" />
+            <span asp-validation-for="fed_tax" class="text-danger"></span>
+        </div>
+        <br />
+        <div class="form-group">
+            <label asp-for="state_tax">State Withholding %</label>
+            <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Tax to be withheld by state government"><img id="tooltip" src="Images/tooltip.png" /></a>
+            <input asp-for="state_tax" type="number" class="form-control" placeholder="Enter state income tax rate" />
+            <span asp-validation-for="state_tax" class="text-danger"></span>
+        </div>
+        <br />
+        <div class="form-group">
+            <label>Retirement Type</label><br />
+            <input type="radio" asp-for="retirement_plan" value="1" id="Roth" />
+            <label asp-for="retirement_plan">Roth</label>
+            <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Taxes are taken out of paychecks when receieved"><img id="tooltip" src="Images/tooltip.png" /></a>
+            <input type="radio" asp-for="retirement_plan" value="2" id="Trad" />
+            <label asp-for="retirement_plan">Traditional</label>
+            <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Taxes are taken out when taxes are filed each year"><img id="tooltip" src="Images/tooltip.png" /></a>
+            <span asp-validation-for="retirement_plan" class="text-danger"></span>
+        </div>
+        <br />
+        <div class="form-group">
+            <label asp-for="retirement_withholding">Retirement Withholding %</label>
+            <input asp-for="retirement_withholding" type="number" class="form-control" placeholder="Enter retirement withholding rate" />
+            <span asp-validation-for="retirement_withholding" class="text-danger"></span>
+        </div>
+        <br />
+        <button type="submit" class="btn btn-primary">Calculate</button>
+    </form>
+</div>
+<br />
+
+
+@if (Model.yearly_gross_pay > 0)
+{
+    <div class="container salary-breakdown">
+        <div class="breakdown-item">
+            <h3>Yearly Breakdown</h3>
+            <br />
+            <p><strong>Gross Pay:</strong> <span class="text-success">@Model.yearly_gross_pay.ToString("C")</span></p>
+            <br />
+            <p><strong>Deductions:</strong></p>
+            <p>Federal Withholding @Model.display_fedtax%: <span>@Model.yearly_fedtax_total.ToString("C")</span></p>
+            <p>State Withholding @Model.display_statetax%: <span>@Model.yearly_statetax_total.ToString("C")</span></p>
+            <p>Social Security 6.2%: <span>@Model.yearly_social_security.ToString("C")</span></p>
+            <p>Medicare Tax 1.45%: <span>@Model.yearly_medicare_tax.ToString("C")</span></p>
+            @if (Model.yearly_gross_pay >= 200000)
+            {
+                <p>Medicare Surtax 0.9%: <span>@Model.yearly_medicare_surtax.ToString("C")</span></p>
+            }
+            <p>@Model.display_retirement_type Retirement @Model.display_retirement%: <span>@Model.yearly_retirement.ToString("C")</span></p>
+            <br />
+            <p><strong>Total Deductions:</strong> <span class="text-danger">@Model.yearly_total_deductions.ToString("C")</span></p>
+            <p><strong>Net Pay:</strong> <span class="text-success">@Model.yearly_net_pay.ToString("C")</span></p>
+        </div>
+
+        <div class="breakdown-item">
+            <h3>Bi-Weekly Breakdown</h3>
+            <br />
+            <p><strong>Gross Pay:</strong> <span class="text-success">@Model.biweekly_gross_pay.ToString("C")</span></p>
+            <br />
+            <p><strong>Deductions:</strong></p>
+            <p>Federal Withholding @Model.display_fedtax%: <span>@Model.biweekly_fedtax_total.ToString("C")</span></p>
+            <p>State Withholding @Model.display_statetax%: <span>@Model.biweekly_statetax_total.ToString("C")</span></p>
+            <p>Social Security 6.2%: <span>@Model.biweekly_social_security.ToString("C")</span></p>
+            <p>Medicare Tax 1.45%: <span>@Model.biweekly_medicare_tax.ToString("C")</span></p>
+            <p>@Model.display_retirement_type Retirement @Model.display_retirement%: <span>@Model.biweekly_retirement.ToString("C")</span></p>
+            <br />
+            <p><strong>Total Deductions:</strong> <span class="text-danger">@Model.biweekly_total_deductions.ToString("C")</span></p>
+            <p><strong>Net Pay:</strong> <span class="text-success">@Model.biweekly_net_pay.ToString("C")</span></p>
+        </div>
+
+        <div class="breakdown-item">
+            <h3>Weekly Breakdown</h3>
+            <br />
+            <p><strong>Gross Pay:</strong> <span class="text-success">@Model.weekly_gross_pay.ToString("C")</span></p>
+            <br />
+            <p><strong>Deductions:</strong></p>
+            <p>Federal Withholding @Model.display_fedtax%: <span>@Model.weekly_fedtax_total.ToString("C")</span></p>
+            <p>State Withholding @Model.display_statetax%: <span>@Model.weekly_statetax_total.ToString("C")</span></p>
+            <p>Social Security 6.2%: <span>@Model.weekly_social_security.ToString("C")</span></p>
+            <p>Medicare Tax 1.45%: <span>@Model.weekly_medicare_tax.ToString("C")</span></p>
+            <p>@Model.display_retirement_type Retirement @Model.display_retirement%: <span>@Model.weekly_retirement.ToString("C")</span></p>
+            <br />
+            <p><strong>Total Deductions:</strong> <span class="text-danger">@Model.weekly_total_deductions.ToString("C")</span></p>
+            <p><strong>Net Pay:</strong> <span class="text-success">@Model.weekly_net_pay.ToString("C")</span></p>
+        </div>
+    </div>
+}
+
+<div class="container">
+    <a href="/Index"><button class="btn btn-primary" id="back-button" type="button" asp-page="/Index">Back</button></a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+
