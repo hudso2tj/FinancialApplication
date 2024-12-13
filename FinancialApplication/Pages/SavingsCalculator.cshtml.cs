@@ -6,7 +6,6 @@ namespace FinancialApplication.Pages
 {
     public class SavingsCalculatorModel : PageModel
     {
-
         [BindProperty]
         [Required]
         [Range(0.0, double.MaxValue, ErrorMessage = "Please enter a number greater than 0")]
@@ -14,7 +13,7 @@ namespace FinancialApplication.Pages
 
         [BindProperty]
         [Required(ErrorMessage = "Please enter a number greater than 0")]
-        public int years {  get; set; }
+        public int years { get; set; }
 
         [BindProperty]
         [Required]
@@ -24,31 +23,45 @@ namespace FinancialApplication.Pages
         [BindProperty]
         [Required(ErrorMessage = "Please select a compound frequency")]
         public int compound_frequency { get; set; }
+
         public double ending_balance { get; set; }
         public double eb1 { get; set; }
         public double eb2 { get; set; }
 
+        // List to store balances over time
+        public List<double> BalanceOverTime { get; private set; } = new List<double>();
+
         public void OnPost()
         {
             annual_interest = annual_interest / 100;
+            BalanceOverTime.Clear();
 
-            //Calculations for monthly compounding interest
-            if (compound_frequency == 1)
+            if (compound_frequency == 1) // Monthly compounding
             {
                 eb1 = (1 + annual_interest / 12);
-                eb2 = (12 * years);
-                ending_balance = Math.Pow(eb1, eb2) * starting_balance;
+                eb2 = 12 * years;
 
+                for (int i = 1; i <= eb2; i++)
+                {
+                    double balance = Math.Pow(eb1, i) * starting_balance;
+                    BalanceOverTime.Add(balance);
+                }
+
+                ending_balance = BalanceOverTime.Last();
             }
-            // Calculations for yearly compounding interest
-            else if (compound_frequency == 2)
+            else if (compound_frequency == 2) // Yearly compounding
             {
                 eb1 = (1 + annual_interest / 1);
-                eb2 = (1 * years);
-                ending_balance = Math.Pow(eb1, eb2) * starting_balance;
-            }
-            //Will likely add support for more compounding frequencies
+                eb2 = 1 * years;
 
+                for (int i = 1; i <= eb2; i++)
+                {
+                    double balance = Math.Pow(eb1, i) * starting_balance;
+                    BalanceOverTime.Add(balance);
+                }
+
+                ending_balance = BalanceOverTime.Last();
+            }
         }
     }
 }

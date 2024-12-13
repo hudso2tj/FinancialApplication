@@ -44,6 +44,7 @@
     <Content Remove="wwwroot\Images\retirement-calc.png" />
     <Content Remove="wwwroot\Images\salary-calc.png" />
     <Content Remove="wwwroot\Images\salary-calc.webp" />
+    <Content Remove="wwwroot\js\index.js" />
     <Content Remove="wwwroot\js\site.js" />
   </ItemGroup>
 
@@ -51,6 +52,11 @@
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.10" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\json\" />
+    <Folder Include="wwwroot\js\" />
   </ItemGroup>
 
 </Project>

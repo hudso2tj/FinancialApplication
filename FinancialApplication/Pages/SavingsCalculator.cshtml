@@ -11,14 +11,14 @@
     .salary-breakdown {
         display: flex;
         justify-content: space-between;
-        gap: 20px; /* Increased gap between columns */
+        gap: 20px;
     }
 
         .salary-breakdown .breakdown-item {
             flex: 1;
             margin-right: 10px;
-            padding: 15px; /* Added padding for better separation */
-            border: 1px solid #000; /* Optional: Adding border for visual separation */
+            padding: 15px;
+            border: 1px solid #000;
         }
 
             .salary-breakdown .breakdown-item h3 {
@@ -28,7 +28,7 @@
             .salary-breakdown .breakdown-item p {
                 display: flex;
                 justify-content: space-between;
-                align-items: baseline; /* Align baseline for better vertical alignment */
+                align-items: baseline;
             }
 
                 .salary-breakdown .breakdown-item p span {
@@ -40,22 +40,21 @@
                 margin-bottom: 5px;
             }
 
-            /* Aligning Net Pay and Total Deductions to the right */
             .salary-breakdown .breakdown-item h6 {
                 text-align: right;
             }
 
                 .salary-breakdown .breakdown-item h6 span {
-                    margin-left: 15px; /* Adjust as needed for spacing */
+                    margin-left: 15px;
                 }
 </style>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
         var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-            return new bootstrap.Tooltip(tooltipTriggerEl)
-        })
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
     });
 </script>
 
@@ -84,10 +83,10 @@
         <br />
         <div class="form-group">
             <label asp-for="compound_frequency">Compound frequency</label>
-            <input type="radio" asp-for="compound_frequency" value="1" id="Monthly"/>
-            <label asp-for="compound_frequency">Monthly</label>
+            <input type="radio" asp-for="compound_frequency" value="1" id="Monthly" />
+            <label for="Monthly">Monthly</label>
             <input type="radio" asp-for="compound_frequency" value="2" id="Yearly" />
-            <label asp-for="compound_frequency">Yearly</label>
+            <label for="Yearly">Yearly</label>
             <span asp-validation-for="compound_frequency" class="text-danger"></span>
         </div>
         <br />
@@ -96,15 +95,64 @@
 </div>
 <br />
 
-<div class="form-group">
-    <p>Ending balance: @Model.ending_balance.ToString("C")</p>
+<div class="linechart">
+    <canvas id="savingsChart" width="150" height="150"></canvas>
 </div>
 
-<div class="linechart">
-    <canvas id="savingsChart" width="400" height="400"></canvas>
-</div>
+<script>
+    // Pass model data to Chart.js
+    const chartData = {
+        labels: Array.from({ length: @Model.eb2 }, (_, i) => i + 1), 
+        balances: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.BalanceOverTime)) 
+    };
+
+    // Initialize Chart.js
+    const CHART = document.getElementById("savingsChart");
+    const savingsChart = new Chart(CHART, {
+        type: 'line',
+        data: {
+            labels: chartData.labels, 
+            datasets: [{
+                label: 'Savings Balance',
+                data: chartData.balances, 
+                borderColor: 'rgba(0,0,0, 1)',
+                backgroundColor: 'rgba(0,0,0, 1)',
+                borderWidth: 2,
+                color: 'black'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true, 
+            aspectRatio: 1.5,
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Periods (Months or Years)',
+                        color: 'black' 
+                    },
+                    ticks: {
+                        color: 'black' 
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Balance ($)',
+                        color: 'black' 
+                    },
+                    ticks: {
+                        color: 'black' 
+                    }
+                }
+            }
+        }
+    });
+</script>
 
 <div class="container">
-    <a href="/Index"><button class="btn btn-primary" id="back-button" type="button" asp-page="/Index">Back</button></a>
+    <a href="/Index">
+        <button class="btn btn-primary" id="back-button" type="button" asp-page="/Index">Back</button>
+    </a>
 </div>
-
