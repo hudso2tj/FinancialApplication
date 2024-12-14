@@ -9,12 +9,12 @@ of calculating various finances and savings related content.
 - Implemented a basic preliminary design.
 - Functionality of 4 of the 6 calculators.
 
-# Things I have planned
+# Features I have planned
 - Retirement calculator that shows hypothetical retirement savings.
 - Budget planner that helps analyze spending and monthly expense and income reports.
 - Implementing visual aids to display calculator infortmation.
 
-# Things I'm considering adding
+# Features I'm considering adding
 - User login to be able to repeatedly access data from previous visits.
 - Database integration to assist with the above point.
   
