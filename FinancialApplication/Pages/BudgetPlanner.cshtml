@@ -9,6 +9,123 @@
     <p>Use this tool to plan out expense limits and allocate money to needs, wants, and savings.</p>
 </div>
 
+<div class="container" id="budgetBox">
+    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pills-income-tab" data-bs-toggle="pill" data-bs-target="#pills-income" type="button" role="tab" aria-controls="pills-income" aria-selected="false">Income</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="pills-housing-tab" data-bs-toggle="pill" data-bs-target="#pills-housing" type="button" role="tab" aria-controls="pills-housing" aria-selected="true">Housing</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pills-transportation-tab" data-bs-toggle="pill" data-bs-target="#pills-transportation" type="button" role="tab" aria-controls="pills-transportation" aria-selected="false">Transportation</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pills-food-tab" data-bs-toggle="pill" data-bs-target="#pills-food" type="button" role="tab" aria-controls="pills-food" aria-selected="false">Food</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pills-utilities-tab" data-bs-toggle="pill" data-bs-target="#pills-utilities" type="button" role="tab" aria-controls="pills-utilities" aria-selected="false">Utilities</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pills-insurance-tab" data-bs-toggle="pill" data-bs-target="#pills-insurance" type="button" role="tab" aria-controls="pills-insurance" aria-selected="false">Insurance</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pills-medical-tab" data-bs-toggle="pill" data-bs-target="#pills-medical" type="button" role="tab" aria-controls="pills-medical" aria-selected="false">Medical & Healthcare</button>
+        </li>
+    </ul>
+    <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade" id="pills-income" role="tabpanel" aria-labelledby="pills-income-tab" tabindex="0">Income tab info</div>
+        <div class="tab-pane fade show active" id="pills-housing" role="tabpanel" aria-labelledby="pills-housing-tab" tabindex="0">Housing tab info
+
+        </div>
+        <div class="tab-pane fade" id="pills-transportation" role="tabpanel" aria-labelledby="pills-transportation-tab" tabindex="0">Transportation tab info</div>
+        <div class="tab-pane fade" id="pills-food" role="tabpanel" aria-labelledby="pills-food-tab" tabindex="0">Food tab info</div>
+        <div class="tab-pane fade" id="pills-utilities" role="tabpanel" aria-labelledby="pills-utility-tab" tabindex="0">Utility tab info</div>
+        <div class="tab-pane fade" id="pills-insurance" role="tabpanel" aria-labelledby="pills-insurance-tab" tabindex="0">Insurance tab info</div>
+        <div class="tab-pane fade" id="pills-medical" role="tabpanel" aria-labelledby="pills-medical-tab" tabindex="0">Medical & Healthcare tab info</div>
+    </div>
+    <div class="pieChart">
+    <canvas id="budgetChart" width="200" height="200"></canvas>
+</div>
+</div>
+
+
+<br />
+
 <div class="container">
     <a href="/Index"><button class="btn btn-primary" id="back-button" type="button" asp-page="/Index">Back</button></a>
 </div>
+
+@* Start of JS for chart *@
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+            document.addEventListener("DOMContentLoaded", function () {
+        const CHART = document.getElementById("budgetChart");
+        const budgetChart = new Chart(CHART, {
+            type: 'pie',
+            data: {
+                labels: ['Red', 'Blue', 'Yellow'],
+                datasets: [{
+                    label: 'Monthly Budget Allocation',
+                    data: [300, 50, 100],
+                    backgroundColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(54, 162, 235)',
+                        'rgb(255, 205, 86)'
+                    ],
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true, 
+                maintainAspectRatio: false, 
+                plugins: {
+                    legend: {
+                        display: true, 
+                        position: 'bottom', 
+                    },
+                    title: {
+                        display: true,
+                        text: 'Monthly Budget Allocation'
+                    }
+                },
+                layout: {
+                    padding: 20
+                }
+            }
+        });
+
+        CHART.style.width = '300px'; 
+        CHART.style.height = '300px'; 
+    });
+
+
+
+</script>
+
+@* Start of CSS *@
+
+ <style>
+    #budgetBox {
+        border: solid, #41839C;
+        border-radius: 10px;
+    }
+
+    #pills-tab {
+        margin-top: 20px;
+        color: #41839C !important;
+    }
+
+    #pieChart {
+        position: absolute;
+        top: 20px;
+        right: 10px;
+    }
+
+    .tab-content {
+        background-color: white;
+    }
+        
+  </style>
