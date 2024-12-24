@@ -179,6 +179,12 @@ input {
     
 }
 
+#Monthly,
+#Yearly {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
 /* Responsive adjustments */
 @media (max-width: 767.98px) {
     /* Adjustments for smaller screens */
