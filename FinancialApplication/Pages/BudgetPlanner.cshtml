@@ -218,10 +218,28 @@
     <p>Net Income: @Model.monthly_net_income</p>
 </div>
 
-<div class="pieChart">
-    <canvas id="budgetChart" width="200" height="100"></canvas>
-    <canvas id="breakdown" width="200" height="100"></canvas>
+<style>
+    .flexbox {
+        display: flex;
+        align-items: center;
+        justify-content: cetner;
+    }
+
+    .chartBox {
+        width: 50%;
+    }
+</style>
+
+
+<div class="flexbox">
+    <div class="chartBox">
+        <canvas id="budgetChart" width="200" height="100"></canvas>
+    </div>
+    <div class="chartBox">
+        <canvas id="breakdown" width="200" height="100"></canvas>
+    </div>
 </div>
+    
 
 <br />
 
