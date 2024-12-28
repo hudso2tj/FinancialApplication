@@ -12,43 +12,216 @@
 <div class="container" id="budgetBox">
     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="pills-income-tab" data-bs-toggle="pill" data-bs-target="#pills-income" type="button" role="tab" aria-controls="pills-income" aria-selected="false">Income</button>
+            <button class="nav-link active" id="pills-income-tab" data-bs-toggle="pill" data-bs-target="#pills-income" type="button" role="tab" aria-controls="pills-income" aria-selected="false">Income</button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="pills-housing-tab" data-bs-toggle="pill" data-bs-target="#pills-housing" type="button" role="tab" aria-controls="pills-housing" aria-selected="true">Housing</button>
+            <button class="nav-link" id="pills-housing-tab" data-bs-toggle="pill" data-bs-target="#pills-housing" type="button" role="tab" aria-controls="pills-housing" aria-selected="true">Housing</button>
         </li>
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="pills-transportation-tab" data-bs-toggle="pill" data-bs-target="#pills-transportation" type="button" role="tab" aria-controls="pills-transportation" aria-selected="false">Transportation</button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="pills-food-tab" data-bs-toggle="pill" data-bs-target="#pills-food" type="button" role="tab" aria-controls="pills-food" aria-selected="false">Food</button>
+            <button class="nav-link" id="pills-medical-tab" data-bs-toggle="pill" data-bs-target="#pills-medical" type="button" role="tab" aria-controls="pills-medical" aria-selected="false">Medical</button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="pills-utilities-tab" data-bs-toggle="pill" data-bs-target="#pills-utilities" type="button" role="tab" aria-controls="pills-utilities" aria-selected="false">Utilities</button>
+            <button class="nav-link" id="pills-education-tab" data-bs-toggle="pill" data-bs-target="#pills-education" type="button" role="tab" aria-controls="pills-education" aria-selected="false">Education</button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="pills-insurance-tab" data-bs-toggle="pill" data-bs-target="#pills-insurance" type="button" role="tab" aria-controls="pills-insurance" aria-selected="false">Insurance</button>
+            <button class="nav-link" id="pills-loans-tab" data-bs-toggle="pill" data-bs-target="#pills-loans" type="button" role="tab" aria-controls="pills-loans" aria-selected="false">Loans & Credit Cards</button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="pills-medical-tab" data-bs-toggle="pill" data-bs-target="#pills-medical" type="button" role="tab" aria-controls="pills-medical" aria-selected="false">Medical & Healthcare</button>
+            <button class="nav-link" id="pills-investing-tab" data-bs-toggle="pill" data-bs-target="#pills-investing" type="button" role="tab" aria-controls="pills-investing" aria-selected="false">Investing</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pills-giving-tab" data-bs-toggle="pill" data-bs-target="#pills-giving" type="button" role="tab" aria-controls="pills-giving" aria-selected="false">Giving</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pills-misc-tab" data-bs-toggle="pill" data-bs-target="#pills-misc" type="button" role="tab" aria-controls="pills-misc" aria-selected="false">Miscellaneous</button>
         </li>
     </ul>
-    <div class="tab-content" id="pills-tabContent">
-        <div class="tab-pane fade" id="pills-income" role="tabpanel" aria-labelledby="pills-income-tab" tabindex="0">Income tab info</div>
-        <div class="tab-pane fade show active" id="pills-housing" role="tabpanel" aria-labelledby="pills-housing-tab" tabindex="0">Housing tab info
 
+    <hr />
+    <form method="post">
+        <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-income" role="tabpanel" aria-labelledby="pills-income-tab" tabindex="0">
+                <div class="pill-form">
+                    <center>
+                        <h3>Income</h3>
+                        <br />
+                        <label>Monthly Net Income</label>
+                        <input id="budget-input" type="number" asp-for="monthly_income" />
+                        <br />
+                        <label>Other Income</label>
+                        <input id="budget-input" type="number" asp-for="other_income" />
+                    </center>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="pills-housing" role="tabpanel" aria-labelledby="pills-housing-tab" tabindex="0">
+                <center>
+                    <h3>Housing and Living Expenses</h3>
+                    <br />
+                    <label>Mortgage/Rent</label>
+                    <input id="budget-input" type="number" asp-for="mortgage" />
+                    <br />
+                    <label>Property Taxes</label>
+                    <input id="budget-input" type="number" asp-for="property_tax"/>
+                    <br />
+                    <label>Groceries</label>
+                    <input id="budget-input" type="number" asp-for="groceries"/>
+                    <br />
+                    <label>Homeowners/Renters Insurance</label>
+                    <input id="budget-input" type="number" asp-for="homeowners_insurance"/>
+                    <br />
+                    <label>Utilities</label>
+                    <input id="budget-input" type="number" asp-for="utilities"/>
+                    <br />
+                    <label>Child Care</label>
+                    <input id="budget-input" type="number" asp-for="child_care"/>
+                    <br />
+                    <label>Other Expenses</label>
+                    <input id="budget-input" type="number" asp-for="other_housing_expenses"/>
+                </center>
+            </div>
+
+            <div class="tab-pane fade" id="pills-transportation" role="tabpanel" aria-labelledby="pills-transportation-tab" tabindex="0">
+                <center>
+                    <h3>Transportation/Auto Expenses</h3>
+                    <label>Car Loan(s)/Payment</label>
+                    <input id="budget-input" type="number" asp-for="transportation_expenses"/>
+                    <br />
+                    <label>Auto Insurance</label>
+                    <input id="budget-input" type="number" asp-for="auto_insurance"/>
+                    <br />
+                    <label>Public Transportation</label>
+                    <input id="budget-input" type="number" asp-for="public_transportation"/>
+                    <br />
+                    <label>Fuel and Maintenance</label>
+                    <input id="budget-input" type="number" asp-for="fuel"/>
+                    <br />
+                    <label>Other Expenses</label>
+                    <input id="budget-input" type="number" asp-for="other_auto_expenses"/>
+                </center>
+
+            </div>
+
+
+            <div class="tab-pane fade" id="pills-medical" role="tabpanel" aria-labelledby="pills-medical-tab" tabindex="0">
+                <center>
+                    <h3>Medical & Healthcare Expenses</h3>
+                    <label>Health Insurance</label>
+                    <input id="budget-input" type="number" asp-for="health_insurance"/>
+                    <br />
+                    <label>Medical/Dental Expenses</label>
+                    <input id="budget-input" type="number" asp-for="medical_dental_expenses"/>
+                    <br />
+                    <label>Other Expenses</label>
+                    <input id="budget-input" type="number" asp-for="other_medical_expenses"/>
+                </center>
+            </div>
+
+            <div class="tab-pane fade" id="pills-education" role="tabpanel" aria-labelledby="pills-education-tab" tabindex="0">
+                <center>
+                    <h3>Education Expenses</h3>
+                    <label>Tuition</label>
+                    <input id="budget-input" type="number" asp-for="tuition"/>
+                    <br />
+                    <label>Textbooks</label> 
+                    <input id="budget-input" type="number" asp-for="textbooks"/>
+                    <br />
+                    <label>Supplies</label>
+                    <input id="budget-input" type="number" asp-for="supplies"/>
+                    <br />
+                    <label>Other Expenses</label>
+                    <input id="budget-input" type="number" asp-for="other_education_expenses"/>
+                </center>
+            </div>
+
+            <div class="tab-pane fade" id="pills-loans" role="tabpanel" aria-labelledby="pills-loans-tab" tabindex="0">
+                <center>
+                    <h3>Loans & Credit Cards Expenses</h3>
+                    <label>Student Loans</label>
+                    <input id="budget-input" type="number" asp-for="student_loans"/>
+                    <br />
+                    <label>Credit Cards</label>
+                    <input id="budget-input" type="number" asp-for="credit_cards"/>
+                    <br />
+                    <label>Other Expenses</label>
+                    <input id="budget-input" type="number" asp-for="other_loan_expenses"/>
+                </center>
+            </div>
+
+            <div class="tab-pane fade" id="pills-investing" role="tabpanel" aria-labelledby="pills-investing-tab" tabindex="0">
+                <center>
+                    <h3>Savings and Investing</h3>
+                    <label>College/Education Savings</label>
+                    <input id="budget-input" type="number" asp-for="college_savings"/>
+                    <br />
+                    <label>Investments</label>
+                    <input id="budget-input" type="number" asp-for="investments"/>
+                    <br />
+                    <label>Other Expenses</label>
+                    <input id="budget-input" type="number" asp-for="other_savings_expenses"/>
+                </center>
+            </div>
+
+            <div class="tab-pane fade" id="pills-giving" role="tabpanel" aria-labelledby="pills-giving-tab" tabindex="0">
+                <center>
+                    <h3>Giving Expenses</h3>
+                    <label>Gifts</label>
+                    <input id="budget-input" type="number" asp-for="gifts"/>
+                    <br />
+                    <label>Donations</label>
+                    <input id="budget-input" type="number" asp-for="donations"/>
+                </center>
+            </div>
+
+            <div class="tab-pane fade" id="pills-misc" role="tabpanel" aria-labelledby="pills-misc-tab" tabindex="0">
+                <center>
+                    <h3>Miscellaneous Expenses</h3>
+                    <label>Entertainment</label>
+                    <input id="budget-input" type="number" asp-for="entertainment"/>
+                    <br />
+                    <label>Travel</label>
+                    <input id="budget-input" type="number" asp-for="travel"/>
+                    <br />
+                    <label>Clothing</label>
+                    <input id="budget-input" type="number" asp-for="clothing"/>
+                    <br />
+                    <label>Personal Care</label>
+                    <input id="budget-input" type="number" asp-for="personal_care"/>
+                    <br />
+                    <label>General Purchases</label>
+                    <input id="budget-input" type="number" asp-for="general_purchases"/>
+                    <br />
+                    <label>Other Expenses</label>
+                    <input id="budget-input" type="number" asp-for="other_misc_expenses"/>
+                </center>
+            </div>
+            <center>
+                <button class="btn btn-primary" type="submit">Calculate</button>
+            </center>
         </div>
-        <div class="tab-pane fade" id="pills-transportation" role="tabpanel" aria-labelledby="pills-transportation-tab" tabindex="0">Transportation tab info</div>
-        <div class="tab-pane fade" id="pills-food" role="tabpanel" aria-labelledby="pills-food-tab" tabindex="0">Food tab info</div>
-        <div class="tab-pane fade" id="pills-utilities" role="tabpanel" aria-labelledby="pills-utility-tab" tabindex="0">Utility tab info</div>
-        <div class="tab-pane fade" id="pills-insurance" role="tabpanel" aria-labelledby="pills-insurance-tab" tabindex="0">Insurance tab info</div>
-        <div class="tab-pane fade" id="pills-medical" role="tabpanel" aria-labelledby="pills-medical-tab" tabindex="0">Medical & Healthcare tab info</div>
+    </form>
+
+
+
+    <div class="pill-buttons">
+        <button class="btn btn-primary" id="last-pill" type="button">Previous</button>
+        <button class="btn btn-primary" id="next-pill" type="button">Next</button>
     </div>
-    <div class="pieChart">
-    <canvas id="budgetChart" width="200" height="200"></canvas>
-</div>
 </div>
 
+<div class="monthly-budget-breakdown">
+    <p>Income: @Model.income</p>
+    <p>Expenses: @Model.monthly_expenses</p>
+    <p>Net Income: @Model.monthly_net_income</p>
+</div>
+
+<div class="pieChart">
+    <canvas id="budgetChart" width="200" height="100"></canvas>
+    <canvas id="breakdown" width="200" height="100"></canvas>
+</div>
 
 <br />
 
@@ -58,37 +231,140 @@
 
 @* Start of JS for chart *@
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1"></script>
+
 
 <script>
-            document.addEventListener("DOMContentLoaded", function () {
-        const CHART = document.getElementById("budgetChart");
-        const budgetChart = new Chart(CHART, {
+
+    //Pie chart settings
+            const pieData = @Html.Raw(Json.Serialize(new
+        {
+            monthly_net_income = @Model.monthly_net_income,
+            monthly_expenses = @Model.monthly_expenses,
+            income = @Model.income,
+            housing_expenses = @Model.housing_expenses,
+            transportation_expenses = @Model.transportation_expenses,
+            medical_expenses = @Model.medical_expenses,
+            education_expenses = @Model.education_expenses,
+            loans_cc_expenses = @Model.loans_cc_expenses,
+            investing_expenses = @Model.investing_expenses,
+            giving_expenses = @Model.giving_expenses,
+            miscellaneous_expenses = @Model.miscellaneous_expenses
+        }));
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const CHART1 = document.getElementById("breakdown");
+        const breakdown = new Chart(CHART1, {
             type: 'pie',
             data: {
-                labels: ['Red', 'Blue', 'Yellow'],
+                labels: [
+                    'Income',
+                    'Expenses',
+                    'Net Income',
+                ],
                 datasets: [{
-                    label: 'Monthly Budget Allocation',
-                    data: [300, 50, 100],
-                    backgroundColor: [
-                        'rgb(255, 99, 132)',
-                        'rgb(54, 162, 235)',
-                        'rgb(255, 205, 86)'
+                    label: 'Monthly Budget Breakdown',
+                    data: [
+                        pieData.income,
+                        pieData.monthly_expenses,
+                        pieData.monthly_net_income
                     ],
+                    backgroundColor: [
+                        'rgb(54, 162, 235)',
+                        'rgb(255, 205, 86)',
+                        'rgb(255, 99, 71)',
+                    ],
+                    borderColor: 'black',
+                    borderWidth: 1,
                     hoverOffset: 4
                 }]
             },
             options: {
-                responsive: true, 
-                maintainAspectRatio: false, 
+                radius: 150,
+                responsive: true,
+                maintainAspectRatio: true,
                 plugins: {
                     legend: {
-                        display: true, 
-                        position: 'bottom', 
+                        display: true,
+                        position: window.innerWidth < 768 ? 'bottom' : 'chartArea',
+                        labels: {
+                            color: 'black'
+                        }
                     },
                     title: {
                         display: true,
-                        text: 'Monthly Budget Allocation'
+                        text: 'Monthly Budget Allocation',
+                        color: 'black'
+                    }
+                },
+                layout: {
+                    padding: {
+                        top: 0,
+                        bottom: 0,
+                        left: 0,
+                        right: 0
+                    }
+                }
+            }
+        });
+        const CHART = document.getElementById("budgetChart");
+        const budgetChart = new Chart(CHART, {
+            type: 'pie',
+            data: {
+                labels: [
+                    'Housing',
+                    'Transportation',
+                    'Medical',
+                    'Education',
+                    'Loans & CCs',
+                    'Investing',
+                    'Giving',
+                    'Miscellaneous'
+                ],
+                datasets: [{
+                    label: 'Monthly Budget Allocation',
+                    data: [
+                        pieData.housing_expenses,
+                        pieData.transportation_expenses,
+                        pieData.medical_expenses,
+                        pieData.education_expenses,
+                        pieData.loans_cc_expenses,
+                        pieData.investing_expenses,
+                        pieData.giving_expenses,
+                        pieData.miscellaneous_expenses
+                    ],
+                    backgroundColor: [
+                        'rgb(54, 162, 235)',
+                        'rgb(255, 205, 86)',
+                        'rgb(255, 99, 71)',
+                        'rgb(153, 102, 355)',
+                        'rgb(255, 159, 64)',
+                        'rgb(201, 203, 207)',
+                        'rgb(0, 204, 102)',
+                        'rgb(255, 128, 0)'
+                    ],
+                    borderColor: 'black',
+                    borderWidth: 1,
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                radius: 150,
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: window.innerWidth < 768 ? 'bottom' : 'chartArea',
+                        labels: {
+                            color: 'black',
+                            padding: 20
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Spending Categories',
+                        color: 'black'
                     }
                 },
                 layout: {
@@ -96,10 +372,63 @@
                 }
             }
         });
-
-        CHART.style.width = '300px'; 
-        CHART.style.height = '300px'; 
     });
+
+
+        
+
+
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const nextButton = document.getElementById('next-pill');
+        const lastButton = document.getElementById('last-pill');
+        const tabs = document.querySelectorAll('.nav-link');
+        const tabContents = document.querySelectorAll('.tab-pane');
+
+        let currentIndex = Array.from(tabs).findIndex(tab => tab.classList.contains('active'));
+
+        function updateButtonState() {
+            if (currentIndex === tabs.length - 1) {
+                nextButton.disabled = true;
+            } else {
+                nextButton.disabled = false;
+            }
+
+            if (currentIndex === 0) {
+                lastButton.disabled = true;
+            } else {
+                lastButton.disabled = false;
+            }
+        }
+
+        updateButtonState();
+
+        nextButton.addEventListener('click', function () {
+            if (currentIndex < tabs.length - 1) {
+                currentIndex++;
+                tabs[currentIndex].click();
+            }
+            updateButtonState();
+        });
+
+        lastButton.addEventListener('click', function () {
+            if (currentIndex > 0) {
+                currentIndex--;
+                tabs[currentIndex].click();
+            }
+            updateButtonState(); 
+        });
+
+        tabs.forEach((tab, index) => {
+            tab.addEventListener('click', function () {
+                currentIndex = index;
+                updateButtonState(); 
+            });
+        });
+    });
+
 
 
 
@@ -109,13 +438,9 @@
 
  <style>
     #budgetBox {
-        border: solid, #41839C;
+        border: solid, 3px, #41839C;
         border-radius: 10px;
-    }
-
-    #pills-tab {
-        margin-top: 20px;
-        color: #41839C !important;
+        padding: 15px;
     }
 
     #pieChart {
@@ -127,5 +452,65 @@
     .tab-content {
         background-color: white;
     }
+
+    .nav-pills .nav-link {
+        color: black; /* Default text color for pills */
+        border: 2px solid transparent; /* Transparent border for inactive state */
+        border-radius: 5px;
+        transition: all 0.3s ease; /* Smooth transition for hover and active effects */
+        margin: 20px 5px 10px;
+        padding: 5px;
+    }
+
+        .nav-pills .nav-link.active {
+            color: white; /* Text color for active pill */
+            background-color: #41839C; /* Active pill background color matches border */
+            border-color: #41839C; /* Matches the border color of the container */
+        }
+
+        .nav-pills .nav-link:hover {
+            background-color: #E0F4F9; /* Optional: Slight hover effect for inactive pills */
+            border-color: #41839C; /* Matches border on hover */
+            color: black;
+        }
+
+        .pill-buttons {
+            margin-bottom: 10px;
+            display: flex; /* Enable flexbox */
+            justify-content: center; /* Center the buttons horizontally */
+            align-items: center; /* Center the buttons vertically if needed */
+            position: relative;
+        }
+
+        .tab-pane,
+        .tab-pane fade {
+            background-color: #E2DE99;
+        }
+
+        #budget-input {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        hr {
+        border: solid, 1px, #41839C;
+        }
+
+    .tab-content label {
+        text-align: right;
+        width: 150px;
+    }
+
+    .tab-content {
+        background-color: #E2DE99;
+        height: 500px;
+    }
+
+    .tab-content button {
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+
+
         
-  </style>
+ </style>

@@ -159,6 +159,7 @@ input {
 .assets, .liabilities {
     border: solid, #41839C;
     border-radius: 10px;
+    padding: 15px;
 }
 
 #tooltip {
