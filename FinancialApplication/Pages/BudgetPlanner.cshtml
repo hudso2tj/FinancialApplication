@@ -199,7 +199,7 @@
                 </center>
             </div>
             <center>
-                <button class="btn btn-primary" onclick="toggleChartsOn()" id="showCharts" type="submit">Calculate</button>
+                <button class="btn btn-primary" id="showCharts" type="submit">Calculate</button>
             </center>
         </div>
     </form>
@@ -208,6 +208,7 @@
 
     <div class="pill-buttons">
         <button class="btn btn-primary" id="last-pill" type="button">Previous</button>
+        <button class="btn btn-primary" onclick="toggleCharts()" id="chartButton" type="button">Show Charts</button>
         <button class="btn btn-primary" id="next-pill" type="button">Next</button>
     </div>
 </div>
@@ -229,7 +230,7 @@
             miscellaneous_expenses = @Model.miscellaneous_expenses
         }));
 
-    function initializeCharts() {
+
     document.addEventListener("DOMContentLoaded", function () {
         const CHART1 = document.getElementById("breakdown");
         const breakdown = new Chart(CHART1, {
@@ -352,18 +353,19 @@
         });
     });
 
-    }
-
-        // Displays the pie charts when user presses "calculate"
-        function toggleChartsOn() {
-        var charts = document.getElementById('flexbox');
-
-        if (charts.style.display === 'none') {
-            charts.style.display = 'flex'; 
-            initializeCharts();
+    function toggleCharts() {
+        charts = document.getElementById('flexbox');
+        if (charts.style.display === 'none' || charts.style.display === '') {
+            charts.style.display = 'flex';
+            document.getElementById('chartButton').innerHTML = 'Hide Charts';
+        } else if (charts.style.display === 'flex') {
+            charts.style.display = 'none';
+            document.getElementById('chartButton').innerHTML = 'Show Charts';
         }
 
     }
+
+    
 
 </script>
 
@@ -411,23 +413,21 @@
 <script>
 
     document.addEventListener("DOMContentLoaded", function () {
-
         const nextButton = document.getElementById('next-pill');
         const lastButton = document.getElementById('last-pill');
         const tabs = document.querySelectorAll('.nav-link');
-        const tabContents = document.querySelectorAll('.tab-pane');
 
         let currentIndex = Array.from(tabs).findIndex(tab => tab.classList.contains('active'));
 
         function updateButtonState() {
             if (currentIndex === tabs.length - 1) {
-                nextButton.disabled = true;
+                nextButton.disabled = true; // Disable "Next" on the last tab
             } else {
                 nextButton.disabled = false;
             }
 
-            if (currentIndex === 0) {
-                lastButton.disabled = true;
+            if (currentIndex === 1) { // Adjust this index to match "Housing" tab
+                lastButton.disabled = true; // Disable "Previous" on the "Housing" tab
             } else {
                 lastButton.disabled = false;
             }
@@ -437,27 +437,24 @@
 
         nextButton.addEventListener('click', function () {
             if (currentIndex < tabs.length - 1) {
-                currentIndex++;
-                tabs[currentIndex].click();
+                tabs[currentIndex + 1].click(); // Simulate a click on the next tab
             }
-            updateButtonState();
         });
 
         lastButton.addEventListener('click', function () {
             if (currentIndex > 0) {
-                currentIndex--;
-                tabs[currentIndex].click();
+                tabs[currentIndex - 1].click(); // Simulate a click on the previous tab
             }
-            updateButtonState(); 
         });
 
         tabs.forEach((tab, index) => {
             tab.addEventListener('click', function () {
-                currentIndex = index;
-                updateButtonState(); 
+                currentIndex = index; // Update the active index
+                updateButtonState(); // Recheck button state
             });
         });
     });
+
 
 
 
