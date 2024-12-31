@@ -7,6 +7,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
 
 <style>
+
+    .container #salaryBox {
+        border: solid, 3px, #41839C;
+        border-radius: 10px;
+        padding: 15px;
+    }
     .salary-breakdown {
         display: flex;
         justify-content: space-between;
@@ -63,7 +69,7 @@
     <p>Welcome to the salary calculator! This calculator will be able to provide a rough estimate of the amount of cash </p>
 </div>
 
-<div class="container">
+<div class="container" id="salaryBox">
     <form method="post">
         <div class="form-group">
             <label asp-for="hourly_pay">Hourly Pay</label>

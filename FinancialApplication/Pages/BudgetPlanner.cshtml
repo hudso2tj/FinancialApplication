@@ -199,7 +199,7 @@
                 </center>
             </div>
             <center>
-                <button class="btn btn-primary" type="submit">Calculate</button>
+                <button class="btn btn-primary" onclick="toggleChartsOn()" id="showCharts" type="submit">Calculate</button>
             </center>
         </div>
     </form>
@@ -212,50 +212,9 @@
     </div>
 </div>
 
-<div class="monthly-budget-breakdown">
-    <p>Income: @Model.income</p>
-    <p>Expenses: @Model.monthly_expenses</p>
-    <p>Net Income: @Model.monthly_net_income</p>
-</div>
-
-<style>
-    .flexbox {
-        display: flex;
-        align-items: center;
-        justify-content: cetner;
-    }
-
-    .chartBox {
-        width: 50%;
-    }
-</style>
-
-
-<div class="flexbox">
-    <div class="chartBox">
-        <canvas id="budgetChart" width="200" height="100"></canvas>
-    </div>
-    <div class="chartBox">
-        <canvas id="breakdown" width="200" height="100"></canvas>
-    </div>
-</div>
-    
-
-<br />
-
-<div class="container">
-    <a href="/Index"><button class="btn btn-primary" id="back-button" type="button" asp-page="/Index">Back</button></a>
-</div>
-
-@* Start of JS for chart *@
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1"></script>
-
-
 <script>
 
-    //Pie chart settings
-            const pieData = @Html.Raw(Json.Serialize(new
+             const pieData = @Html.Raw(Json.Serialize(new
         {
             monthly_net_income = @Model.monthly_net_income,
             monthly_expenses = @Model.monthly_expenses,
@@ -270,6 +229,7 @@
             miscellaneous_expenses = @Model.miscellaneous_expenses
         }));
 
+    function initializeCharts() {
     document.addEventListener("DOMContentLoaded", function () {
         const CHART1 = document.getElementById("breakdown");
         const breakdown = new Chart(CHART1, {
@@ -381,7 +341,7 @@
                     },
                     title: {
                         display: true,
-                        text: 'Spending Categories',
+                        text: 'Expense Categories',
                         color: 'black'
                     }
                 },
@@ -392,11 +352,63 @@
         });
     });
 
+    }
 
-        
+        // Displays the pie charts when user presses "calculate"
+        function toggleChartsOn() {
+        var charts = document.getElementById('flexbox');
+
+        if (charts.style.display === 'none') {
+            charts.style.display = 'flex'; 
+            initializeCharts();
+        }
+
+    }
+
+</script>
 
 
+<div class="monthly-budget-breakdown">
+    <p>Income: @Model.income</p>
+    <p>Expenses: @Model.monthly_expenses</p>
+    <p>Net Income: @Model.monthly_net_income</p>
+</div>
 
+<style>
+    #flexbox {
+        display: none;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .chartBox {
+        width: 50%;
+    }
+</style>
+
+
+<div id="flexbox">
+    <div class="chartBox">
+        <canvas id="budgetChart" width="200" height="100"></canvas>
+    </div>
+    <div class="chartBox">
+        <canvas id="breakdown" width="200" height="100"></canvas>
+    </div>
+</div>
+    
+
+<br />
+
+<div class="container">
+    <a href="/Index"><button class="btn btn-primary" id="back-button" type="button" asp-page="/Index">Back</button></a>
+</div>
+
+@* Start of JS for chart *@
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1"></script>
+
+
+<script>
 
     document.addEventListener("DOMContentLoaded", function () {
 

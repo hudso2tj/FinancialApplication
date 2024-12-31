@@ -4,12 +4,20 @@
     ViewData["Title"] = "Tip Calculator";
 }
 
+<style>
+    .container #tipBox {
+        border: solid, 3px, #41839C;
+        border-radius: 10px;
+        padding: 15px;
+    }
+</style>
+
 <div class="text-center">
     <h1 class="display-4">Tip Calculator</h1>
     <p>Use this tool to identify the amount of money required for a certain tip percentage.</p>
 </div>
 
-<div class="container">
+<div class="container" id="tipBox">
     <form method="post">
         <div class="form-group">
             <label asp-for="Total">Total:</label>

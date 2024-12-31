@@ -52,6 +52,12 @@
                 height: 100px;
                 width: 100px;
             }
+
+            .container #savingsBox {
+        border: solid, 3px, #41839C;
+        border-radius: 10px;
+        padding: 15px;
+            }
 </style>
 
 <script>
@@ -68,7 +74,7 @@
     <p>Use this tool to calculate a simple savings estimate.</p>
 </div>
 
-<div class="container">
+<div class="container" id="savingsBox">
     <form method="post">
         <div class="form-group">
             <label asp-for="starting_balance">Starting balance <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Initial deposit or existing amount in bank account."><img id="tooltip" src="Images/tooltip.png" /></a></label>
@@ -98,6 +104,11 @@
         <br />
         <button type="submit" class="btn btn-primary">Calculate</button>
     </form>
+    <div class="container">
+        <a href="/Index">
+            <button class="btn btn-primary" id="back-button" type="button" asp-page="/Index">Back</button>
+        </a>
+    </div>
 </div>
 <br />
 
@@ -157,8 +168,3 @@
     });
 </script>
 
-<div class="container">
-    <a href="/Index">
-        <button class="btn btn-primary" id="back-button" type="button" asp-page="/Index">Back</button>
-    </a>
-</div>
