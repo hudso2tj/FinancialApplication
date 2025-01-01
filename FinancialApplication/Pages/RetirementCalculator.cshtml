@@ -9,6 +9,39 @@
     <p>Use this tool to calculate estimated savings for retirement.</p>
 </div>
 
-<div class="container">
-    <a href="/Index"><button class="btn btn-primary" id="back-button" type="button" asp-page="/Index">Back</button></a>
+<div class="container" id="retirementBox">
+    <form method="post">
+        <div class="form-group">
+
+        </div>
+        <div id="calculate">
+            <button type="submit" class="btn btn-primary">Calculate</button>
+        </div>
+    </form>
+    <div id="back-button-container">
+        <a href="/Index"><button class="btn btn-primary" id="back-button-container" type="button" asp-page="/Index">Back</button></a>
+    </div>
 </div>
+
+<style>
+    #retirementBox {
+        border: 3px, solid, #41839C;
+        border-radius: 10px;
+        padding: 15px;
+    }
+
+    #back-button-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #calculate {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+
+</style>

@@ -10,6 +10,21 @@
         border-radius: 10px;
         padding: 15px;
     }
+
+    .back-button-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .calculate {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+
 </style>
 
 <div class="text-center">
@@ -38,8 +53,15 @@
             <span asp-validation-for="NumPeople" class="text-danger"></span>
         </div>
         <br />
-        <button type="submit" class="btn btn-primary">Calculate Tip</button>
+        <div class="calculate">
+            <button type="submit" id="calculate" class="btn btn-primary">Calculate</button>
+        </div>
     </form>
+    <div class="back-button-container">
+        <a href="/Index">
+            <button class="btn btn-primary" id="back-button" type="button" asp-page="/Index">Back</button>
+        </a>
+    </div>
 </div>
 <br />
 
@@ -58,17 +80,10 @@
     </div>
 }
 
-<div class="container">
-    <a href="/Index"><button class="btn btn-primary" id="back-button" type="button" asp-page="/Index">Back</button></a>
-</div>
-
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
 
-<style>
-   
-</style>
             
