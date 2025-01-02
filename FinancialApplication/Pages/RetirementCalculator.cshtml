@@ -12,15 +12,32 @@
 <div class="container" id="retirementBox">
     <form method="post">
         <div class="form-group">
-
+            <label>Current Age</label>
+            <input class="form-control" asp-for="age" type="number" />
+            <br />
+            <label>Retirement Age</label>
+            <input class="form-control" asp-for="retirement_age" type="number" />
+            <br />
+            <label>Current Total Investments</label>
+            <input class="form-control" asp-for="current_investments" type="number" />
+            <br />
+            <label>Monthly Contributions</label>
+            <input class="form-control" asp-for="contributions" type="number" />
+            <br />
+            <label>Projected Annual Returns</label>
+            <input class="form-control" asp-for="annual_returns" type="number" />
         </div>
         <div id="calculate">
-            <button type="submit" class="btn btn-primary">Calculate</button>
+            <button type="submit" class="btn btn-primary" id="calculate">Calculate</button>
         </div>
     </form>
     <div id="back-button-container">
         <a href="/Index"><button class="btn btn-primary" id="back-button-container" type="button" asp-page="/Index">Back</button></a>
     </div>
+</div>
+
+<div class="amortization">
+    <h3>@Model.future_value.ToString("C")</h3>
 </div>
 
 <style>
@@ -43,5 +60,8 @@
         margin-bottom: 20px;
     }
 
+    #calculate {
+        margin-top: 10px;
+    }
 
 </style>
