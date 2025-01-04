@@ -24,21 +24,59 @@
             <label>Monthly Contributions</label>
             <input class="form-control" asp-for="contributions" type="number" />
             <br />
-            <label>Projected Annual Returns</label>
+            <label>Projected Annual Returns (%)</label>
             <input class="form-control" asp-for="annual_returns" type="number" />
+            <br />
+            <label>Percent of Savings Withdrawn Per Year</label>
+            <input class="form-control" asp-for="withdraw_percentage" type="number" />
         </div>
         <div id="calculate">
-            <button type="submit" class="btn btn-primary" id="calculate">Calculate</button>
+            <button type="submit" class="btn btn-primary">Calculate</button>
         </div>
     </form>
     <div id="back-button-container">
-        <a href="/Index"><button class="btn btn-primary" id="back-button-container" type="button" asp-page="/Index">Back</button></a>
+        <a href="/Index">
+            <button class="btn btn-primary" type="button">Back</button>
+        </a>
     </div>
 </div>
 
-<div class="amortization">
-    <h3>@Model.future_value.ToString("C")</h3>
-</div>
+@if (Model.future_value > 0)
+{   
+    <div id="savings">
+        <h3>Retirement Savings</h3>
+        <h3>@Model.future_value.ToString("C")</h3>
+    </div>
+
+    <div class="amortization" id="table">
+        <table class="table table-striped">
+            <tr>
+                <th scope="col">Age</th>
+                <th scope="col">@Model.display_withdraw_amount% of Savings</th>
+                <th scope="col">Savings Remaining</th>
+            </tr>
+            @{
+                double table_future_value = Model.future_value;
+                double amount_withdrawn;
+                double table_withdraw_percentage = Model.withdraw_percentage;
+                table_withdraw_percentage = table_withdraw_percentage / 100;
+                for (int i = Model.retirement_age; i < 101; i++)
+                {
+                    
+                    amount_withdrawn = table_future_value * table_withdraw_percentage;
+                    table_future_value -= amount_withdrawn;
+                    <tr>
+                        <th scope="row">@i</th>
+                        <td>@amount_withdrawn.ToString("C")</td>
+                        <td>@table_future_value.ToString("C")</td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+}
+
+
 
 <style>
     #retirementBox {
@@ -64,4 +102,15 @@
         margin-top: 10px;
     }
 
+    .amortization td, th, tr {
+        border: 3px, solid, black;
+        text-align: center;
+    }
+
+    #savings {
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
 </style>
+
