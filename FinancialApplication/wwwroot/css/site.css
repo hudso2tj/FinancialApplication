@@ -9,8 +9,19 @@ html, body {
     flex-direction: column;
 }
 
+/* Consistent size for the home icon */
+.navbar-brand img #home-icon {
+    height: 40px;
+    width: 40px;
+    max-height: 40px;
+    max-width: 40px;
+    transition: none !important; /* Disable transitions */
+}
+
+
 .navbar {
     background-color: #41839C !important;
+    height: 60px;
 }
 
 .navbar-brand,
