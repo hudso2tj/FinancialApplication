@@ -10,25 +10,38 @@
 </div>
 
 <div class="container" id="retirementBox">
+    <h6>*Indicates the field is required</h6>
     <form method="post">
         <div class="form-group">
-            <label>Current Age</label>
+            <label>Current Age*</label>
             <input class="form-control" asp-for="age" type="number" />
+            <span asp-validation-for="age" class="text-danger"></span>
             <br />
-            <label>Retirement Age</label>
+            <label>Retirement Age*</label>
             <input class="form-control" asp-for="retirement_age" type="number" />
+            <span asp-validation-for="retirement_age" class="text-danger"></span>
             <br />
             <label>Current Total Investments</label>
+            <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Total amount invested in stocks, mutual funds, etc."><img id="tooltip" src="Images/tooltip.png" /></a>
             <input class="form-control" asp-for="current_investments" type="number" />
             <br />
-            <label>Monthly Contributions</label>
+            <label>Monthly Contributions*</label>
+            <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Monthly contributions to investments."><img id="tooltip" src="Images/tooltip.png" /></a>
             <input class="form-control" asp-for="contributions" type="number" />
             <br />
-            <label>Projected Annual Returns (%)</label>
+            <label>Projected Annual Returns (%)*</label>
+            <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Projected annual returns on investments, "><img id="tooltip" src="Images/tooltip.png" /></a>
             <input class="form-control" asp-for="annual_returns" type="number" />
+            <span asp-validation-for="annual_returns" class="text-danger"></span>
             <br />
-            <label>Percent of Savings Withdrawn Per Year</label>
+            <label>Savings Withdrawn Per Year (%)*</label>
+            <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Percentage of savings to take out per year during retirement."><img id="tooltip" src="Images/tooltip.png" /></a>
             <input class="form-control" asp-for="withdraw_percentage" type="number" />
+            <span asp-validation-for="withdraw_percentage" class="text-danger"></span>
+            <br />
+            <label>Life Expectancy*</label>
+            <input class="form-control" asp-for="life_expectancy" type="number" />
+            <span asp-validation-for="life_expectancy" class="text-danger"></span>
         </div>
         <div id="calculate">
             <button type="submit" class="btn btn-primary">Calculate</button>
@@ -60,7 +73,7 @@
                 double amount_withdrawn;
                 double table_withdraw_percentage = Model.withdraw_percentage;
                 table_withdraw_percentage = table_withdraw_percentage / 100;
-                for (int i = Model.retirement_age; i < 101; i++)
+                for (int i = Model.retirement_age; i <= Model.life_expectancy; i++)
                 {
                     
                     amount_withdrawn = table_future_value * table_withdraw_percentage;
@@ -114,3 +127,11 @@
     }
 </style>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    });
+</script>

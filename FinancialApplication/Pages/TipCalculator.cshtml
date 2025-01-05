@@ -33,22 +33,22 @@
 </div>
 
 <div class="container" id="tipBox">
+    <h6>*Indicates the field is required</h6>
     <form method="post">
         <div class="form-group">
-            <label asp-for="Total">Total</label>
+            <label asp-for="Total">Total*</label>
             <input asp-for="Total" type="number" class="form-control" />
             <span asp-validation-for="Total" class="text-danger"></span>
         </div>
         <br />
         <div class="form-group">
-            <label>Tip Percentage</label>
+            <label>Tip Percentage*</label>
             <input asp-for="TipPercentage" type="number" class="form-control" />
-            <span asp-validation-for="TipPercentage" class="text-danger"></span>
             <span asp-validation-for="TipPercentage" class="text-danger"></span>
         </div>
         <br />
         <div class="form-group">
-            <label asp-for="NumPeople">Split</label>
+            <label asp-for="NumPeople">Split*</label>
             <input asp-for="NumPeople" class="form-control" />
             <span asp-validation-for="NumPeople" class="text-danger"></span>
         </div>

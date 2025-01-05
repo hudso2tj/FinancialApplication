@@ -25,6 +25,7 @@ namespace FinancialApplication.Pages
         public int contributions { get; set; }
 
         [BindProperty]
+        [Required]
         [Range(int.MinValue, int.MaxValue)]
         public double annual_returns { get; set; }
 
@@ -33,6 +34,10 @@ namespace FinancialApplication.Pages
         [Range(0, 100, ErrorMessage = "Enter a number 0-100")]
         public double withdraw_percentage { get; set; }
 
+        [BindProperty]
+        [Required]
+        [Range(20, 120, ErrorMessage = "Enter a number 20-120")]
+        public int life_expectancy { get; set; }
 
         public int time { get; set; }
         public double future_value { get; set; }

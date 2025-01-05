@@ -6,6 +6,8 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="css/salary-calculator.css" />
+
 
 <style>
     .salary-breakdown {
@@ -75,6 +77,7 @@
             #chartBox {
                 display: none;
             }
+
 </style>
 
 <script>
@@ -92,21 +95,24 @@
 </div>
 
 <div class="container" id="savingsBox">
+    <h6>*Indicates the field is required</h6>
     <form method="post">
         <div class="form-group">
             <label asp-for="starting_balance">Starting balance <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Initial deposit or existing amount in bank account."><img id="tooltip" src="Images/tooltip.png" /></a></label>
-            <input asp-for="starting_balance" type="number" class="form-control" placeholder="Enter starting balance" />
+            <input asp-for="starting_balance" type="number" class="form-control" />
             <span asp-validation-for="starting_balance" class="text-danger"></span>
         </div>
         <br />
         <div class="form-group">
             <label asp-for="years">Years to grow <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Length of time for money to grow (in years)"><img id="tooltip" src="Images/tooltip.png" /></a></label>
-            <input asp-for="years" type="number" class="form-control" placeholder="Years" />
+            <input asp-for="years" type="number" class="form-control" />
+            <span asp-validation-for="years" class="text-danger"></span>
         </div>
         <br />
         <div class="form-group">
             <label asp-for="annual_interest">Annual Percentage Yield (%) <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Percentage of interest earned on the account (APY)."><img id="tooltip" src="Images/tooltip.png" /></a></label>
-            <input asp-for="annual_interest" type="number" class="form-control" placeholder="3" />
+            <input asp-for="annual_interest" type="number" class="form-control" />
+            <span asp-validation-for="annual_interest" class="text-danger"></span>
         </div>
         <br />
         <div class="form-group">

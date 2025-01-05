@@ -199,18 +199,10 @@
                 </center>
             </div>
             <center>
-                <button class="btn btn-primary" id="showCharts" type="submit">Calculate</button>
+                <button class="btn btn-primary" id="showCharts" type="button">Calculate</button>
             </center>
         </div>
     </form>
-
-
-
-    <div class="pill-buttons">
-        <button class="btn btn-primary" id="last-pill" type="button">Previous</button>
-        <button class="btn btn-primary" onclick="toggleCharts()" id="chartButton" type="button">Show Charts</button>
-        <button class="btn btn-primary" id="next-pill" type="button">Next</button>
-    </div>
 
     <div class="back-button-container">
         <a href="/Index">
@@ -218,249 +210,208 @@
         </a>
     </div>
 
-
-<script>
-
-             const pieData = @Html.Raw(Json.Serialize(new
-        {
-            monthly_net_income = @Model.monthly_net_income,
-            monthly_expenses = @Model.monthly_expenses,
-            income = @Model.income,
-            housing_expenses = @Model.housing_expenses,
-            transportation_expenses = @Model.transportation_expenses,
-            medical_expenses = @Model.medical_expenses,
-            education_expenses = @Model.education_expenses,
-            loans_cc_expenses = @Model.loans_cc_expenses,
-            investing_expenses = @Model.investing_expenses,
-            giving_expenses = @Model.giving_expenses,
-            miscellaneous_expenses = @Model.miscellaneous_expenses
-        }));
-
-
-    document.addEventListener("DOMContentLoaded", function () {
-        const CHART1 = document.getElementById("breakdown");
-        const breakdown = new Chart(CHART1, {
-            type: 'pie',
-            data: {
-                labels: [
-                    'Income',
-                    'Expenses',
-                ],
-                datasets: [{
-                    label: 'Monthly Budget Breakdown',
-                    data: [
-                        pieData.income,
-                        pieData.monthly_expenses,
-                    ],
-                    backgroundColor: [
-                            'rgb(34,139,34)',
-                            'rgb(178,34,34)',
-                    ],
-                    borderColor: 'black',
-                    borderWidth: 2,
-                    hoverOffset: 4
-                }]
-            },
-            options: {
-                radius: 150,
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: true,
-                        position: 'bottom',
-                        labels: {
-                            color: 'black'
-                        }
-                    },
-                    title: {
-                        display: true,
-                        text: 'Income vs. Expenses',
-                        color: 'black'
-                    }
-                },
-                layout: {
-                    padding: {
-                        top: 0,
-                        bottom: 0,
-                        left: 0,
-                        right: 0
-                    }
-                }
-            }
-        });
-        const CHART = document.getElementById("budgetChart");
-        const budgetChart = new Chart(CHART, {
-            type: 'pie',
-            data: {
-                labels: [
-                    'Housing',
-                    'Transportation',
-                    'Medical',
-                    'Education',
-                    'Loans & CCs',
-                    'Investing',
-                    'Giving',
-                    'Miscellaneous'
-                ],
-                datasets: [{
-                    label: 'Monthly Budget Allocation',
-                    data: [
-                        pieData.housing_expenses,
-                        pieData.transportation_expenses,
-                        pieData.medical_expenses,
-                        pieData.education_expenses,
-                        pieData.loans_cc_expenses,
-                        pieData.investing_expenses,
-                        pieData.giving_expenses,
-                        pieData.miscellaneous_expenses
-                    ],
-                    backgroundColor: [
-                        'rgb(54, 162, 235)',
-                        'rgb(255, 205, 86)',
-                        'rgb(255, 99, 71)',
-                        'rgb(153, 102, 355)',
-                        'rgb(255, 159, 64)',
-                        'rgb(201, 203, 207)',
-                        'rgb(0, 204, 102)',
-                        'rgb(255, 128, 0)'
-                    ],
-                    borderColor: 'black',
-                    borderWidth: 2,
-                    hoverOffset: 4
-                }]
-            },
-            options: {
-                radius: 150,
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: true,
-                        position: 'bottom',
-                        labels: {
-                            color: 'black',
-                            padding: 20
-                        }
-                    },
-                    title: {
-                        display: true,
-                        text: 'Expense Categories',
-                        color: 'black'
-                    }
-                },
-                layout: {
-                    padding: 20
-                }
-            }
-        });
-    });
-
-    function toggleCharts() {
-        charts = document.getElementById('flexbox');
-        if (charts.style.display === 'none' || charts.style.display === '') {
-            charts.style.display = 'flex';
-            document.getElementById('chartButton').innerHTML = 'Hide Charts';
-        } else if (charts.style.display === 'flex') {
-            charts.style.display = 'none';
-            document.getElementById('chartButton').innerHTML = 'Show Charts';
-        }
-
-    }
-
-    
-
-</script>
-
-<style>
-    #flexbox {
-        display: none;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .chartBox {
-        width: 50%;
-    }
-</style>
-
-
-<div id="flexbox">
-    <div class="chartBox">
-        <canvas id="budgetChart" width="200" height="100"></canvas>
+    <div id="flexbox" style="display: none;">
+        <div class="chartBox">
+            <canvas id="breakdown"></canvas> 
+        </div>
+        <div class="chartBox">
+            <canvas id="budgetChart"></canvas> 
+        </div>
     </div>
-    <div class="chartBox">
-        <canvas id="breakdown" width="200" height="100"></canvas>
-    </div>
-</div>
-    
-
-<br />
 
 
 @* Start of JS for chart *@
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1"></script>
 
 
-<script>
+    <script>
+        // Ensure pieData is correctly serialized and populated
+        const pieData = @Html.Raw(Json.Serialize(new
+            {
+                monthly_net_income = @Model.monthly_net_income,
+                monthly_expenses = @Model.monthly_expenses,
+                income = @Model.income,
+                housing_expenses = @Model.housing_expenses,
+                transportation_expenses = @Model.transportation_expenses,
+                medical_expenses = @Model.medical_expenses,
+                education_expenses = @Model.education_expenses,
+                loans_cc_expenses = @Model.loans_cc_expenses,
+                investing_expenses = @Model.investing_expenses,
+                giving_expenses = @Model.giving_expenses,
+                miscellaneous_expenses = @Model.miscellaneous_expenses
+            }));
 
-    document.addEventListener("DOMContentLoaded", function () {
-        const nextButton = document.getElementById('next-pill');
-        const lastButton = document.getElementById('last-pill');
-        const tabs = document.querySelectorAll('.nav-link');
+        console.log(pieData);  // Ensure pieData is populated correctly
 
-        let currentIndex = Array.from(tabs).findIndex(tab => tab.classList.contains('active'));
+        document.addEventListener("DOMContentLoaded", function () {
+            const calculateButton = document.getElementById("showCharts");
+            const flexboxSection = document.getElementById("flexbox");
 
-        function updateButtonState() {
-            if (currentIndex === tabs.length - 1) {
-                nextButton.disabled = true; // Disable "Next" on the last tab
-            } else {
-                nextButton.disabled = false;
-            }
+            // Hide charts initially
+            flexboxSection.style.display = "none";
 
-            if (currentIndex === 1) { // Adjust this index to match "Housing" tab
-                lastButton.disabled = true; // Disable "Previous" on the "Housing" tab
-            } else {
-                lastButton.disabled = false;
-            }
-        }
+            calculateButton.addEventListener("click", function () {
+                // Toggle chart visibility when the Calculate button is clicked
+                flexboxSection.style.display = "flex";
+            });
 
-        updateButtonState();
-
-        nextButton.addEventListener('click', function () {
-            if (currentIndex < tabs.length - 1) {
-                tabs[currentIndex + 1].click(); // Simulate a click on the next tab
-            }
-        });
-
-        lastButton.addEventListener('click', function () {
-            if (currentIndex > 0) {
-                tabs[currentIndex - 1].click(); // Simulate a click on the previous tab
-            }
-        });
-
-        tabs.forEach((tab, index) => {
-            tab.addEventListener('click', function () {
-                currentIndex = index; // Update the active index
-                updateButtonState(); // Recheck button state
+            // Chart 1 - Income vs. Expenses
+                const CHART1 = document.getElementById("breakdown");
+            const breakdown = new Chart(CHART1, {
+                type: 'pie',
+                data: {
+                    labels: [
+                        'Income',
+                        'Expenses',
+                    ],
+                    datasets: [{
+                        label: 'Monthly Budget Breakdown',
+                        data: [
+                            pieData.income,
+                            pieData.monthly_expenses,
+                        ],
+                        backgroundColor: [
+                                'rgb(34,139,34)',
+                                'rgb(178,34,34)',
+                        ],
+                        borderColor: 'black',
+                        borderWidth: 2,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    radius: 150,
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'bottom',
+                            labels: {
+                                color: 'black'
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Income vs. Expenses',
+                            color: 'black'
+                        }
+                    },
+                    layout: {
+                        padding: {
+                            top: 0,
+                            bottom: 0,
+                            left: 0,
+                            right: 0
+                        }
+                    }
+                }
+            });
+            const CHART = document.getElementById("budgetChart");
+            const budgetChart = new Chart(CHART, {
+                type: 'pie',
+                data: {
+                    labels: [
+                        'Housing',
+                        'Transportation',
+                        'Medical',
+                        'Education',
+                        'Loans & CCs',
+                        'Investing',
+                        'Giving',
+                        'Miscellaneous'
+                    ],
+                    datasets: [{
+                        label: 'Monthly Budget Allocation',
+                        data: [
+                            pieData.housing_expenses,
+                            pieData.transportation_expenses,
+                            pieData.medical_expenses,
+                            pieData.education_expenses,
+                            pieData.loans_cc_expenses,
+                            pieData.investing_expenses,
+                            pieData.giving_expenses,
+                            pieData.miscellaneous_expenses
+                        ],
+                        backgroundColor: [
+                            'rgb(54, 162, 235)',
+                            'rgb(255, 205, 86)',
+                            'rgb(255, 99, 71)',
+                            'rgb(153, 102, 355)',
+                            'rgb(255, 159, 64)',
+                            'rgb(201, 203, 207)',
+                            'rgb(0, 204, 102)',
+                            'rgb(255, 128, 0)'
+                        ],
+                        borderColor: 'black',
+                        borderWidth: 2,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    radius: 150,
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'bottom',
+                            labels: {
+                                color: 'black',
+                                padding: 20
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Expense Categories',
+                            color: 'black'
+                        }
+                    },
+                    layout: {
+                        padding: 20
+                    }
+                }
             });
         });
-    });
+    </script>
 
 
 
-
-
-</script>
 
 @* Start of CSS *@
 
  <style>
+
+        #flexbox {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .chartBox {
+            width: 45%;
+            height: 500px; /* Fixed height for container */
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        canvas {
+            width: 100%; /* Full width of container */
+            height: 100% !important; /* Force height to 100% */
+        }
+
+
     #budgetBox {
         border: solid, 3px, #41839C;
         border-radius: 10px;
         padding: 15px;
+        margin-top: 20px;
     }
 
     #pieChart {
@@ -478,8 +429,9 @@
         border: 2px solid transparent; /* Transparent border for inactive state */
         border-radius: 5px;
         transition: all 0.3s ease; /* Smooth transition for hover and active effects */
-        margin: 20px 5px 10px;
-        padding: 5px;
+        margin: 10px;
+        padding: 10px;
+        transition: all 0.3s ease;
     }
 
         .nav-pills .nav-link.active {
@@ -539,6 +491,4 @@
         .back-button {
             display: inline-block;
         }
-
-        
  </style>

@@ -53,36 +53,48 @@
                     <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Cash on hand, Savings accounts, Checking accounts"><img id="tooltip" src="Images/tooltip.png" /></a>
                 </label>
                 <input asp-for="Cash" type="number" class="form-control" />
+                <span asp-validation-for="Cash" class="text-danger"></span>
+                <br />
 
                 <label>
                     Investments
                     <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Stocks, Bonds, Mutual Funds, Retirement accounts, CDs"><img id="tooltip" src="Images/tooltip.png" /></a>
                 </label>
                 <input asp-for="Investments" type="number" class="form-control" />
+                <span asp-validation-for="Investments" class="text-danger"></span>
+                <br />
 
                 <label>
                     Real Estate
                     <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Primary residence, Vacation homes, Rental properties, Land"><img id="tooltip" src="Images/tooltip.png" /></a>
                 </label>
                 <input asp-for="RealEstate" type="number" class="form-control" />
+                <span asp-validation-for="RealEstate" class="text-danger"></span>
+                <br />
 
                 <label>
                     Personal Property
                     <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Cars, Boats, Recreational Vehicles, Jewelry, Collectibles"><img id="tooltip" src="Images/tooltip.png" /></a>
                 </label>
                 <input asp-for="PersonalProperty" type="number" class="form-control" />
+                <span asp-validation-for="PersonalProperty" class="text-danger"></span>
+                <br />
 
                 <label>
                     Business Ownership
                     <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Equity in private businesses, Partnership interests"><img id="tooltip" src="Images/tooltip.png" /></a>
                 </label>
                 <input asp-for="BusinessOwnership" type="number" class="form-control" />
+                <span asp-validation-for="BusinessOwnership" class="text-danger"></span>
+                <br />
 
                 <label>
                     Other Assets
                     <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Cash value of life insurance policies, Money owed to you, Other valuable items"><img id="tooltip" src="Images/tooltip.png" /></a>
                 </label>
                 <input asp-for="OtherAssets" type="number" class="form-control" />
+                <span asp-validation-for="OtherAssets" class="text-danger"></span>
+                <br />
             </div>
 
             <br />
@@ -93,18 +105,24 @@
                     <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Credit card debt, Medical bills, Personal loans, Taxes owed"><img id="tooltip" src="Images/tooltip.png" /></a>
                 </label>
                 <input asp-for="ShortTermLiability" type="number" class="form-control" />
+                <span asp-validation-for="ShortTermLiability" class="text-danger"></span>
+                <br />
 
                 <label>
                     Long-Term Liabilities
                     <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Mortgage on primary residence, Home equity loans, Auto loans, Student loans, Business loans"><img id="tooltip" src="Images/tooltip.png" /></a>
                 </label>
                 <input asp-for="LongTermLiability" type="number" class="form-control" />
+                <span asp-validation-for="LongTermLiability" class="text-danger"></span>
+                <br />
 
                 <label>
                     Other Liabilities
                     <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Outstanding bills (utilities, rent, etc), Alimony or child support payments, Other long-term debts"><img id="tooltip" src="Images/tooltip.png" /></a>
                 </label>
                 <input asp-for="OtherLiability" type="number" class="form-control" />
+                <span asp-validation-for="OtherLiability" class="text-danger"></span>
+                <br />
             </div>
             <br />
             <div id="calculate">

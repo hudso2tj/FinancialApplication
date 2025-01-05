@@ -4,6 +4,8 @@
     ViewData["Title"] = "Salary Calculator";
 }
 
+<link rel="stylesheet" href="css/salary-calculator.css" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -68,7 +70,18 @@
         margin-bottom: 20px;
     }
 
+    @@media (max-width: 768px) {
+        .salary-breakdown
 
+    {
+        display: block;
+    }
+
+    .salary-breakdown .breakdown-item {
+        margin-bottom: 20px;
+    }
+
+    }
 </style>
 
 <script>
@@ -86,16 +99,17 @@
 </div>
 
 <div class="container" id="salaryBox">
+    <h6>*Indicates the field is required</h6>
     <form method="post">
         <div class="form-group">
-            <label asp-for="hourly_pay">Hourly Pay</label>
+            <label asp-for="hourly_pay">Hourly Pay*</label>
             <input asp-for="hourly_pay" type="number" class="form-control" placeholder="Enter hourly wage" />
             <span asp-validation-for="hourly_pay" class="text-danger"></span>
         </div>
         <br />
         <div class="form-group">
             <label asp-for="fed_tax">
-                Federal Withholding %
+                Federal Withholding (%)*
                 <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Tax to be withheld by the federal government."><img id="tooltip" src="Images/tooltip.png" /></a>
             </label>
             <input asp-for="fed_tax" type="number" class="form-control" placeholder="Enter federal income tax rate" />
@@ -103,14 +117,14 @@
         </div>
         <br />
         <div class="form-group">
-            <label asp-for="state_tax">State Withholding %</label>
+            <label asp-for="state_tax">State Withholding (%)*</label>
             <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Tax to be withheld by state government."><img id="tooltip" src="Images/tooltip.png" /></a>
             <input asp-for="state_tax" type="number" class="form-control" placeholder="Enter state income tax rate" />
             <span asp-validation-for="state_tax" class="text-danger"></span>
         </div>
         <br />
         <div class="form-group">
-            <label>Retirement Type</label><br />
+            <label>Retirement Type*</label><br />
             <input type="radio" asp-for="retirement_plan" value="1" id="Roth" />
             <label asp-for="retirement_plan">Roth</label>
             <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Taxes are taken out of paychecks when receieved."><img id="tooltip" src="Images/tooltip.png" /></a>
@@ -121,7 +135,7 @@
         </div>
         <br />
         <div class="form-group">
-            <label asp-for="retirement_withholding">Retirement Withholding % <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Percentage of paycheck set aside for retirement fund."><img id="tooltip" src="Images/tooltip.png" /></a></label>
+            <label asp-for="retirement_withholding">Retirement Withholding (%) <a href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Percentage of paycheck set aside for retirement fund."><img id="tooltip" src="Images/tooltip.png" /></a></label>
             <input asp-for="retirement_withholding" type="number" class="form-control" placeholder="Enter retirement withholding rate" />
             <span asp-validation-for="retirement_withholding" class="text-danger"></span>
         </div>

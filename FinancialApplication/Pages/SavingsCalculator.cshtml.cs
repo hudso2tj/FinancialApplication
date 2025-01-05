@@ -12,7 +12,8 @@ namespace FinancialApplication.Pages
         public double starting_balance { get; set; }
 
         [BindProperty]
-        [Required(ErrorMessage = "Please enter a number greater than 0")]
+        [Required]
+        [Range(1, int.MaxValue, ErrorMessage = "Please enter a number greater than 0")]
         public int years { get; set; }
 
         [BindProperty]
