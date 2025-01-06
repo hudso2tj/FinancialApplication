@@ -8,7 +8,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <link rel="stylesheet" href="css/salary-calculator.css" />
 
-
+@*CSS Styles*@
 <style>
     .salary-breakdown {
         display: flex;
@@ -16,57 +16,57 @@
         gap: 20px;
     }
 
-        .salary-breakdown .breakdown-item {
-            flex: 1;
-            margin-right: 10px;
-            padding: 15px;
-            border: 1px solid #000;
-        }
+    .salary-breakdown .breakdown-item {
+        flex: 1;
+        margin-right: 10px;
+        padding: 15px;
+        border: 1px solid #000;
+    }
 
-            .salary-breakdown .breakdown-item h3 {
-                text-align: center;
-            }
+    .salary-breakdown .breakdown-item h3 {
+        text-align: center;
+    }
 
-            .salary-breakdown .breakdown-item p {
-                display: flex;
-                justify-content: space-between;
-                align-items: baseline;
-            }
+    .salary-breakdown .breakdown-item p {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+    }
 
-                .salary-breakdown .breakdown-item p span {
-                    margin-left: 15px;
-                }
+    .salary-breakdown .breakdown-item p span {
+        margin-left: 15px;
+    }
 
-            .salary-breakdown .breakdown-item h6 {
-                margin-top: 10px;
-                margin-bottom: 5px;
-            }
+    .salary-breakdown .breakdown-item h6 {
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }
 
-            .salary-breakdown .breakdown-item h6 {
-                text-align: right;
-            }
+    .salary-breakdown .breakdown-item h6 {
+        text-align: right;
+    }
 
-                .salary-breakdown .breakdown-item h6 span {
-                    margin-left: 15px;
-                }
+    .salary-breakdown .breakdown-item h6 span {
+        margin-left: 15px;
+    }
 
-            #savingsChart {
-                height: 100px;
-                width: 100px;
-            }
+    #savingsChart {
+        height: 400px;
+        width: 600px;
+    }
 
-            .container #savingsBox {
+    .container #savingsBox {
         border: solid, 3px, #41839C;
         border-radius: 10px;
         padding: 15px;
-            }
+    }
 
-            .back-button-container {
-            text-align: center;
-            margin-top: 20px; /* Adjust as needed for spacing */
-        }
+    .back-button-container {
+        text-align: center;
+        margin-top: 20px; 
+    }
 
-          #calculate {
+    #calculate {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -74,12 +74,12 @@
     }
 
 
-            #chartBox {
-                display: none;
-            }
-
+    #chartBox {
+        display: flex;
+        justify-content: center;     
+    }
 </style>
-
+@*Tooltip functionality*@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
@@ -93,7 +93,7 @@
     <h1 class="display-4">Savings Calculator</h1>
     <p>Use this tool to calculate a simple savings estimate.</p>
 </div>
-
+@*Form area*@
 <div class="container" id="savingsBox">
     <h6>*Indicates the field is required</h6>
     <form method="post">
@@ -115,6 +115,7 @@
             <span asp-validation-for="annual_interest" class="text-danger"></span>
         </div>
         <br />
+        @*Radio button options for compound frequency*@
         <div class="form-group">
             <label asp-for="compound_frequency">Compound frequency</label>
             <br />
@@ -126,7 +127,7 @@
         </div>
         <br />
         <div id="calculate">
-            <button type="submit" class="btn btn-primary" onclick="toggleChart()">Calculate</button>
+            <button type="submit" class="btn btn-primary">Calculate</button>
         </div>
     </form>
     <div class="back-button-container">
@@ -137,32 +138,21 @@
 </div>
 
 <br />
-
+@*Chart area*@
 <div id="chartBox">
     <div class="linechart">
         <canvas id="savingsChart" width="50" height="150"></canvas>
     </div>
 </div>
 
-
-
-
 <script>
-    function toggleChart() {
-        chart = document.getElementById('chartBox');
-        if (chart.style.display = 'none') {
-            chart.style.display = 'flex';
-        } 
-    }
-
-
-    // Pass model data to Chart.js
+    //Pass model data to Chart.js
     const chartData = {
         labels: Array.from({ length: @Model.eb2 }, (_, i) => i + 1), 
         balances: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.BalanceOverTime)) 
     };
 
-    // Initialize Chart.js
+    //Create chart.js line graph with model data
     const CHART = document.getElementById("savingsChart");
     const savingsChart = new Chart(CHART, {
         type: 'line',

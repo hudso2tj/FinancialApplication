@@ -6,6 +6,7 @@ namespace FinancialApplication.Pages
 {
     public class SalaryCalculatorModel : PageModel
     {
+        //Model binding to send data to view
         [BindProperty]
         [Required]
         [Range(1, double.MaxValue, ErrorMessage = "Must be a positive number")]
@@ -113,6 +114,7 @@ namespace FinancialApplication.Pages
             weekly_total_deductions = weekly_fedtax_total + weekly_statetax_total + weekly_social_security + weekly_medicare_tax + weekly_retirement;
             weekly_net_pay = weekly_gross_pay - weekly_total_deductions;
 
+            //Calculations for traditional retirement type
             if (retirement_plan == 2)
             {
                 display_retirement_type = "Traditional";
@@ -123,7 +125,7 @@ namespace FinancialApplication.Pages
                 biweekly_total_deductions = biweekly_fedtax_total + biweekly_statetax_total + biweekly_social_security + biweekly_medicare_tax + biweekly_retirement;
                 weekly_total_deductions = weekly_fedtax_total + weekly_statetax_total + weekly_social_security + weekly_medicare_tax + weekly_retirement;
             }
-            
+            //Calculations for roth retirement plan i.e. taxes taken each paycheck
             else if (retirement_plan == 1)
             {
                 display_retirement_type = "Roth";

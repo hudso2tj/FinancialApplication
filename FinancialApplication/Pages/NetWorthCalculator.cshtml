@@ -12,6 +12,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
+@*JS for tooltip icon*@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
@@ -27,6 +28,7 @@
         Use this tool to calculate your net worth by entering your assets and liabilities.
     </p>
 </div>
+
 
 @if (Model.NetWorth != double.MinValue)
 {
@@ -134,11 +136,12 @@
 
 <br />
 
-
+@*Back button, sends to index page*@
 <div class="back-button-container">
     <a href="/Index"><button class="btn btn-primary" id="back-button" type="button" asp-page="/Index">Back</button></a>
 </div>
 
+@*CSS styles for networth page*@
 <style> 
     .back-button-container {
         display: flex;

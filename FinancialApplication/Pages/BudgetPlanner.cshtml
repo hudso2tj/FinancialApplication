@@ -1,14 +1,15 @@
 ﻿@page
 @model FinancialApplication.Pages.BudgetPlannerModel
 @{
-    ViewData["Title"] = "Budget Planner";
+    ViewData["Title"] = "Budget Analysis";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Budget Planner</h1>
-    <p>Use this tool to plan out expense limits and allocate money to needs, wants, and savings.</p>
+    <h1 class="display-4">Budget Analysis</h1>
+    <p>Use this tool to view monthly expenses versus income and how your spending is broken down.</p>
 </div>
 
+@*Form area for budget page*@
 <div class="container" id="budgetBox">
     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
         <li class="nav-item" role="presentation">
@@ -42,6 +43,7 @@
 
     <hr />
     <form method="post">
+        @*Income tab inputs*@
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-income" role="tabpanel" aria-labelledby="pills-income-tab" tabindex="0">
                 <div class="pill-form">
@@ -57,6 +59,7 @@
                 </div>
             </div>
 
+            @*Housing tab inputs*@
             <div class="tab-pane fade" id="pills-housing" role="tabpanel" aria-labelledby="pills-housing-tab" tabindex="0">
                 <center>
                     <h3>Housing and Living Expenses</h3>
@@ -84,6 +87,7 @@
                 </center>
             </div>
 
+            @*Transportation tab inputs*@
             <div class="tab-pane fade" id="pills-transportation" role="tabpanel" aria-labelledby="pills-transportation-tab" tabindex="0">
                 <center>
                     <h3>Transportation/Auto Expenses</h3>
@@ -105,7 +109,7 @@
 
             </div>
 
-
+            @*Medical tab inputs*@
             <div class="tab-pane fade" id="pills-medical" role="tabpanel" aria-labelledby="pills-medical-tab" tabindex="0">
                 <center>
                     <h3>Medical & Healthcare Expenses</h3>
@@ -120,6 +124,7 @@
                 </center>
             </div>
 
+            @*Education tab inputs*@
             <div class="tab-pane fade" id="pills-education" role="tabpanel" aria-labelledby="pills-education-tab" tabindex="0">
                 <center>
                     <h3>Education Expenses</h3>
@@ -137,6 +142,7 @@
                 </center>
             </div>
 
+            @*Loan tab inputs*@
             <div class="tab-pane fade" id="pills-loans" role="tabpanel" aria-labelledby="pills-loans-tab" tabindex="0">
                 <center>
                     <h3>Loans & Credit Cards Expenses</h3>
@@ -151,6 +157,7 @@
                 </center>
             </div>
 
+            @*Investing tab inputs*@
             <div class="tab-pane fade" id="pills-investing" role="tabpanel" aria-labelledby="pills-investing-tab" tabindex="0">
                 <center>
                     <h3>Savings and Investing</h3>
@@ -165,6 +172,7 @@
                 </center>
             </div>
 
+            @*Giving tab inputs*@
             <div class="tab-pane fade" id="pills-giving" role="tabpanel" aria-labelledby="pills-giving-tab" tabindex="0">
                 <center>
                     <h3>Giving Expenses</h3>
@@ -176,6 +184,7 @@
                 </center>
             </div>
 
+            @*Misc Tab inputs*@
             <div class="tab-pane fade" id="pills-misc" role="tabpanel" aria-labelledby="pills-misc-tab" tabindex="0">
                 <center>
                     <h3>Miscellaneous Expenses</h3>
@@ -198,217 +207,188 @@
                     <input id="budget-input" type="number" asp-for="other_misc_expenses"/>
                 </center>
             </div>
+            @* onclick="toggleCharts()" needed in button for charts to appear. *@
             <center>
                 <button class="btn btn-primary" id="showCharts" type="button">Calculate</button>
             </center>
         </div>
     </form>
 
+    @* Back button *@
     <div class="back-button-container">
         <a href="/Index">
             <button class="btn btn-primary back-button" type="button" asp-page="/Index">Back</button>
         </a>
     </div>
+</div>
 
-    <div id="flexbox" style="display: none;">
+@*     <div id="flexbox">
         <div class="chartBox">
             <canvas id="breakdown"></canvas> 
         </div>
         <div class="chartBox">
             <canvas id="budgetChart"></canvas> 
         </div>
-    </div>
+    </div> *@
 
 
 @* Start of JS for chart *@
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1"></script>
+@* <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
-    <script>
-        // Ensure pieData is correctly serialized and populated
+<script>
+    function toggleCharts() {
+
+        document.getElementById("flexbox").style.display = "flex";
+
+        // Get pieData by serializing Model data
         const pieData = @Html.Raw(Json.Serialize(new
-            {
-                monthly_net_income = @Model.monthly_net_income,
-                monthly_expenses = @Model.monthly_expenses,
-                income = @Model.income,
-                housing_expenses = @Model.housing_expenses,
-                transportation_expenses = @Model.transportation_expenses,
-                medical_expenses = @Model.medical_expenses,
-                education_expenses = @Model.education_expenses,
-                loans_cc_expenses = @Model.loans_cc_expenses,
-                investing_expenses = @Model.investing_expenses,
-                giving_expenses = @Model.giving_expenses,
-                miscellaneous_expenses = @Model.miscellaneous_expenses
-            }));
+        {
+            monthly_net_income = @Model.monthly_net_income,
+            monthly_expenses = @Model.monthly_expenses,
+            income = @Model.income,
+            housing_expenses = @Model.housing_expenses,
+            transportation_expenses = @Model.transportation_expenses,
+            medical_expenses = @Model.medical_expenses,
+            education_expenses = @Model.education_expenses,
+            loans_cc_expenses = @Model.loans_cc_expenses,
+            investing_expenses = @Model.investing_expenses,
+            giving_expenses = @Model.giving_expenses,
+            miscellaneous_expenses = @Model.miscellaneous_expenses
+        }));
 
-        console.log(pieData);  // Ensure pieData is populated correctly
+        console.log(pieData);
 
-        document.addEventListener("DOMContentLoaded", function () {
-            const calculateButton = document.getElementById("showCharts");
-            const flexboxSection = document.getElementById("flexbox");
+        // Data for the first pie chart 
+        const data1 = {
+            labels: [
+                'Housing',
+                'Transportation',
+                'Medical',
+                'Education',
+                'Loans & Credit Cards',
+                'Investing',
+                'Giving',
+                'Miscellaneous'
+            ],
+            datasets: [{
+                label: 'Expense Categories',
+                data: [
+                    100, 200, 300, 400, 500, 600, 700, 800
+                ],
+                backgroundColor: [
+                    'rgb(220, 20, 60)',
+                    'rgb(0, 191, 255)',
+                    'rgb(50, 205, 50)',
+                    'rgb(255, 140, 0)',
+                    'rgb(199, 21, 133)',
+                    'rgb(255, 215, 0)',
+                    'rgb(112, 128, 144)',
+                    'rgb(0, 0, 0)'
+                ],
+                hoverOffset: 20
+            }]
+        };
 
-            // Hide charts initially
-            flexboxSection.style.display = "none";
+        // Data for the second pie chart 
+        const data2 = {
+            labels: ['Income', 'Expenses'],
+            datasets: [{
+                label: 'Spending Breakdown',
+                data: [
+                    100, 200
+                ],
+                backgroundColor: ['rgb(34, 193, 195)', 'rgb(253, 187, 45)'],
+                hoverOffset: 20
+            }]
+        };
 
-            calculateButton.addEventListener("click", function () {
-                // Toggle chart visibility when the Calculate button is clicked
-                flexboxSection.style.display = "flex";
-            });
-
-            // Chart 1 - Income vs. Expenses
-                const CHART1 = document.getElementById("breakdown");
-            const breakdown = new Chart(CHART1, {
-                type: 'pie',
-                data: {
-                    labels: [
-                        'Income',
-                        'Expenses',
-                    ],
-                    datasets: [{
-                        label: 'Monthly Budget Breakdown',
-                        data: [
-                            pieData.income,
-                            pieData.monthly_expenses,
-                        ],
-                        backgroundColor: [
-                                'rgb(34,139,34)',
-                                'rgb(178,34,34)',
-                        ],
-                        borderColor: 'black',
-                        borderWidth: 2,
-                        hoverOffset: 4
-                    }]
+        const config1 = {
+            type: 'pie',
+            data: data1,
+            options: {
+                layout: {
+                    padding: {
+                        top: 40,
+                        bottom: 40
+                    }
                 },
-                options: {
-                    radius: 150,
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: true,
-                            position: 'bottom',
-                            labels: {
-                                color: 'black'
-                            }
-                        },
-                        title: {
-                            display: true,
-                            text: 'Income vs. Expenses',
-                            color: 'black'
-                        }
-                    },
-                    layout: {
-                        padding: {
-                            top: 0,
-                            bottom: 0,
-                            left: 0,
-                            right: 0
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        padding: 20,
+                        position: 'bottom'
+                    }
+                }
+            }
+        };
+
+        const config2 = {
+            type: 'pie',
+            data: data2,
+            options: {
+                layout: {
+                    padding: {
+                        top: 40,
+                        bottom: 40
+                    }
+                },
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 20
                         }
                     }
                 }
-            });
-            const CHART = document.getElementById("budgetChart");
-            const budgetChart = new Chart(CHART, {
-                type: 'pie',
-                data: {
-                    labels: [
-                        'Housing',
-                        'Transportation',
-                        'Medical',
-                        'Education',
-                        'Loans & CCs',
-                        'Investing',
-                        'Giving',
-                        'Miscellaneous'
-                    ],
-                    datasets: [{
-                        label: 'Monthly Budget Allocation',
-                        data: [
-                            pieData.housing_expenses,
-                            pieData.transportation_expenses,
-                            pieData.medical_expenses,
-                            pieData.education_expenses,
-                            pieData.loans_cc_expenses,
-                            pieData.investing_expenses,
-                            pieData.giving_expenses,
-                            pieData.miscellaneous_expenses
-                        ],
-                        backgroundColor: [
-                            'rgb(54, 162, 235)',
-                            'rgb(255, 205, 86)',
-                            'rgb(255, 99, 71)',
-                            'rgb(153, 102, 355)',
-                            'rgb(255, 159, 64)',
-                            'rgb(201, 203, 207)',
-                            'rgb(0, 204, 102)',
-                            'rgb(255, 128, 0)'
-                        ],
-                        borderColor: 'black',
-                        borderWidth: 2,
-                        hoverOffset: 4
-                    }]
-                },
-                options: {
-                    radius: 150,
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: true,
-                            position: 'bottom',
-                            labels: {
-                                color: 'black',
-                                padding: 20
-                            }
-                        },
-                        title: {
-                            display: true,
-                            text: 'Expense Categories',
-                            color: 'black'
-                        }
-                    },
-                    layout: {
-                        padding: 20
-                    }
-                }
-            });
-        });
-    </script>
+            }
+        };
+
+        const budgetChart = document.getElementById("budgetChart");
+        const breakdown = document.getElementById("breakdown");
+
+        new Chart(budgetChart, config1);
+        new Chart(breakdown, config2);
+    }
+</script> *@
+
+
 
 
 
 
 @* Start of CSS *@
 
- <style>
+<style>
+    #flexbox {
+        display: none;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        padding: 20px;
+    }
 
-        #flexbox {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-            padding: 20px;
-        }
+    .chartBox {
+        width: 45%;
+        height: 500px; 
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-        .chartBox {
-            width: 45%;
-            height: 500px; /* Fixed height for container */
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        canvas {
-            width: 100%; /* Full width of container */
-            height: 100% !important; /* Force height to 100% */
-        }
-
+    canvas {
+        width: 100%; 
+        height: 100% 
+    }
 
     #budgetBox {
-        border: solid, 3px, #41839C;
+        border: 3px solid #41839C;
         border-radius: 10px;
         padding: 15px;
         margin-top: 20px;
@@ -425,48 +405,47 @@
     }
 
     .nav-pills .nav-link {
-        color: black; /* Default text color for pills */
-        border: 2px solid transparent; /* Transparent border for inactive state */
+        color: black; 
+        border: 2px solid transparent; 
         border-radius: 5px;
-        transition: all 0.3s ease; /* Smooth transition for hover and active effects */
+        transition: all 0.3s ease; 
         margin: 10px;
         padding: 10px;
-        transition: all 0.3s ease;
     }
 
-        .nav-pills .nav-link.active {
-            color: white; /* Text color for active pill */
-            background-color: #41839C; /* Active pill background color matches border */
-            border-color: #41839C; /* Matches the border color of the container */
-        }
+    .nav-pills .nav-link.active {
+        color: white; 
+        background-color: #41839C; 
+        border-color: #41839C; 
+    }
 
-        .nav-pills .nav-link:hover {
-            background-color: #E0F4F9; /* Optional: Slight hover effect for inactive pills */
-            border-color: #41839C; /* Matches border on hover */
-            color: black;
-        }
+    .nav-pills .nav-link:hover {
+        background-color: #E0F4F9; 
+        border-color: #41839C; 
+        color: black;
+    }
 
-        .pill-buttons {
-            margin-bottom: 10px;
-            display: flex; /* Enable flexbox */
-            justify-content: center; /* Center the buttons horizontally */
-            align-items: center; /* Center the buttons vertically if needed */
-            position: relative;
-        }
+    .pill-buttons {
+        margin-bottom: 10px;
+        display: flex; 
+        justify-content: center; 
+        align-items: center; 
+        position: relative;
+    }
 
-        .tab-pane,
-        .tab-pane fade {
-            background-color: #E2DE99;
-        }
+    .tab-pane,
+    .tab-pane fade {
+        background-color: #E2DE99;
+    }
 
-        #budget-input {
-            margin-top: 10px;
-            margin-bottom: 10px;
-        }
+    #budget-input {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
 
-        hr {
-        border: solid, 1px, #41839C;
-        }
+    hr {
+        border: 1px solid #41839C;
+    }
 
     .tab-content label {
         text-align: right;
@@ -483,12 +462,12 @@
         margin-bottom: 15px;
     }
 
-        .back-button-container {
-            text-align: center;
-            margin-top: 20px; /* Adjust as needed for spacing */
-        }
+    .back-button-container {
+        text-align: center;
+        margin-top: 20px;
+    }
 
-        .back-button {
-            display: inline-block;
-        }
- </style>
+    .back-button {
+        display: inline-block;
+    }
+</style>

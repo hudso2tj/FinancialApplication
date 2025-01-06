@@ -9,8 +9,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+@*CSS Styles*@
 <style>
-
     .container #salaryBox {
         border: solid, 3px, #41839C;
         border-radius: 10px;
@@ -19,43 +19,43 @@
     .salary-breakdown {
         display: flex;
         justify-content: space-between;
-        gap: 20px; /* Increased gap between columns */
+        gap: 20px; 
     }
 
-        .salary-breakdown .breakdown-item {
-            flex: 1;
-            margin-right: 10px;
-            padding: 15px; /* Added padding for better separation */
-            border: 1px solid #41839C; /* Optional: Adding border for visual separation */
-        }
+    .salary-breakdown .breakdown-item {
+        flex: 1;
+        margin-right: 10px;
+        padding: 15px; 
+        border: 1px solid #41839C; 
+    }
 
-            .salary-breakdown .breakdown-item h3 {
-                text-align: center;
-            }
+    .salary-breakdown .breakdown-item h3 {
+        text-align: center;
+    }
 
-            .salary-breakdown .breakdown-item p {
-                display: flex;
-                justify-content: space-between;
-                align-items: baseline; /* Align baseline for better vertical alignment */
-            }
+    .salary-breakdown .breakdown-item p {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline; 
+    }
 
-                .salary-breakdown .breakdown-item p span {
-                    margin-left: 15px;
-                }
+    .salary-breakdown .breakdown-item p span {
+        margin-left: 15px;
+    }
 
-            .salary-breakdown .breakdown-item h6 {
-                margin-top: 10px;
-                margin-bottom: 5px;
-            }
+    .salary-breakdown .breakdown-item h6 {
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }
 
-            /* Aligning Net Pay and Total Deductions to the right */
-            .salary-breakdown .breakdown-item h6 {
-                text-align: right;
-            }
+            
+    .salary-breakdown .breakdown-item h6 {
+        text-align: right;
+    }
 
-                .salary-breakdown .breakdown-item h6 span {
-                    margin-left: 15px; /* Adjust as needed for spacing */
-                }
+    .salary-breakdown .breakdown-item h6 span {
+        margin-left: 15px; 
+    }
 
     .back-button-container {
         display: flex;
@@ -70,6 +70,7 @@
         margin-bottom: 20px;
     }
 
+    @*Displays the slary breakdowns responsivley for mobile users*@
     @@media (max-width: 768px) {
         .salary-breakdown
 
@@ -84,6 +85,7 @@
     }
 </style>
 
+@*Tooltip functionality*@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
@@ -98,6 +100,7 @@
     <p>Welcome to the salary calculator! This calculator will be able to provide a rough estimate of the amount of cash </p>
 </div>
 
+@*Form area*@
 <div class="container" id="salaryBox">
     <h6>*Indicates the field is required</h6>
     <form method="post">
@@ -152,7 +155,7 @@
 </div>
 <br />
 
-
+@*Boxes containing the calculations for inputed salary*@
 @if (Model.yearly_gross_pay > 0)
 {
     <div class="container salary-breakdown">

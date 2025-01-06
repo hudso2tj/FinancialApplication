@@ -54,6 +54,7 @@ namespace FinancialApplication.Pages
 
         public void OnPost()
         {
+            //Calculations
             double Assets = Cash + Investments + RealEstate + PersonalProperty + OtherAssets + BusinessOwnership;
             double Liabilities = ShortTermLiability + LongTermLiability + OtherLiability;
             NetWorth = Assets - Liabilities;

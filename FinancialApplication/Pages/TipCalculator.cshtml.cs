@@ -29,6 +29,7 @@ namespace FinancialApplication.Pages
 
         public void OnPost()
         {
+            //Ensures values needed to perform calculation exist before calculating
             if (Total.HasValue && NumPeople.HasValue && TipPercentage.HasValue)
             {
                 TipAmount = (double)((Total.Value * TipPercentage) / 100);

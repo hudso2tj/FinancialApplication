@@ -6,6 +6,7 @@ namespace FinancialApplication.Pages
 {
     public class RetirementCalculatorModel : PageModel
     {
+        //Model binding to pass to view
         [BindProperty]
         [Required]
         [Range(16, 99, ErrorMessage = "Enter age 16-99")]
@@ -45,9 +46,11 @@ namespace FinancialApplication.Pages
         public double display_withdraw_amount { get; set; }
         public void OnPost()
         {
+            //Variables used in retirement table
             display_withdraw_amount = withdraw_percentage;
             retirement_years = retirement_age + 1;
 
+            //Retirement formula calculations
             time = (retirement_age - age) * 12;
             annual_returns = (annual_returns / 100) / 12;
             future_value = contributions * ((Math.Pow(1 + annual_returns, time) - 1) / annual_returns) +

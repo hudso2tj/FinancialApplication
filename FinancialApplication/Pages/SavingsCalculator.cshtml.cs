@@ -6,6 +6,7 @@ namespace FinancialApplication.Pages
 {
     public class SavingsCalculatorModel : PageModel
     {
+        //Model binding to send data to the view
         [BindProperty]
         [Required]
         [Range(0.0, double.MaxValue, ErrorMessage = "Please enter a number greater than 0")]
@@ -35,9 +36,8 @@ namespace FinancialApplication.Pages
         public void OnPost()
         {
             annual_interest = annual_interest / 100;
-            BalanceOverTime.Clear();
-
-            if (compound_frequency == 1) // Monthly compounding
+            //Monthly compounding
+            if (compound_frequency == 1) 
             {
                 eb1 = (1 + annual_interest / 12);
                 eb2 = 12 * years;
@@ -50,7 +50,8 @@ namespace FinancialApplication.Pages
 
                 ending_balance = BalanceOverTime.Last();
             }
-            else if (compound_frequency == 2) // Yearly compounding
+            //Yearly compounding
+            else if (compound_frequency == 2) 
             {
                 eb1 = (1 + annual_interest / 1);
                 eb2 = 1 * years;

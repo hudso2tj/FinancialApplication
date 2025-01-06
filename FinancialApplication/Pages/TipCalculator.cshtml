@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Tip Calculator";
 }
-
+@*CSS Styles*@
 <style>
     .container #tipBox {
         border: solid, 3px, #41839C;
@@ -31,7 +31,7 @@
     <h1 class="display-4">Tip Calculator</h1>
     <p>Use this tool to identify the amount of money required for a certain tip percentage.</p>
 </div>
-
+@*Form area*@
 <div class="container" id="tipBox">
     <h6>*Indicates the field is required</h6>
     <form method="post">
@@ -67,6 +67,7 @@
 
 @if (Model.TotalAfterTip > 0)
 {
+    @*"Receipt" output box*@
     <div class="container salary-breakdown">
         <div class="breakdown-item">
             <h3>Bill Details</h3>

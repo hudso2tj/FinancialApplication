@@ -9,6 +9,7 @@
     <p>Use this tool to calculate estimated savings for retirement.</p>
 </div>
 
+@*Form area*@
 <div class="container" id="retirementBox">
     <h6>*Indicates the field is required</h6>
     <form method="post">
@@ -73,6 +74,7 @@
                 double amount_withdrawn;
                 double table_withdraw_percentage = Model.withdraw_percentage;
                 table_withdraw_percentage = table_withdraw_percentage / 100;
+                @*Iterates from retirement until expected death to create rows for each year in between*@
                 for (int i = Model.retirement_age; i <= Model.life_expectancy; i++)
                 {
                     
@@ -89,7 +91,7 @@
     </div>
 }
 
-
+@*CSS Styles*@
 
 <style>
     #retirementBox {
@@ -127,6 +129,7 @@
     }
 </style>
 
+@*Tooltip functionality*@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
